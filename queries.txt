@@ -1,0 +1,1 @@
+INSERT INTO `admins` (`Username`, `Password`) VALUES ('admin1', 'admin1');
