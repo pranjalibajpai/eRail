@@ -19,3 +19,32 @@
 - [ ] Change type="text" to type="password" in admin-login.php, index.php, register.php to Hide Password
 - [ ] Add condition to all queries if query is not executed / throws an error
 - [ ] Hash algo is needed to store password in database
+
+## Directory Structure
+
+```
+railway-reservation-system
+├── config
+│   ├── connection.php
+|
+├── css
+│   ├── style.css
+|
+├── template
+│   ├── footer.php
+│   ├── header-name.php
+│   ├── header.php
+│  
+├── index.php
+├── admin-login.php
+├── admin-page.php
+├── register.php
+├── user.php
+├── logout.php
+├── README.md
+│  
+├── railwaydb.sql
+|── demo1.gif
+
+
+```
