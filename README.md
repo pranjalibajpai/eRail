@@ -16,5 +16,6 @@
 - If user/admin logouts then access the page through URL then Access is Denied
 
 ## ToDo
-- Hide Password in all fields 
--
+- [ ] Change type="text" to type="password" in admin-login.php, index.php, register.php to Hide Password
+- [ ] Add condition to all queries if query is not executed / throws an error
+- [ ] Hash algo is needed to store password in database
