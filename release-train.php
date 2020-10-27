@@ -22,10 +22,10 @@
 			$errors['date'] = 'Date is required';
         }
         if(empty($num_ac)){
-			$errors['num_ac'] = 'Please enter numer of AC Coaches';
+			$errors['num_ac'] = 'Please enter number of AC Coaches';
         }
         if(empty($num_sleeper)){
-			$errors['num_sleeper'] = 'Please enter numer of Sleeper Coaches';
+			$errors['num_sleeper'] = 'Please enter number of Sleeper Coaches';
         }
 
         //***TODO -- CHECK BEFORE RELEASING WHETHER N SAME DATE SAME TRAIN NUMBER IS NOT THERE */
