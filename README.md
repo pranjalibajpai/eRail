@@ -16,9 +16,10 @@
 - If user/admin logouts then access the page through URL then Access is Denied
 
 ## ToDo
-- [ ] Change type="text" to type="password" in admin-login.php, index.php, register.php to Hide Password
+- [x] Change type="text" to type="password" in admin-login.php, index.php, register.php to Hide Password
 - [ ] Add condition to all queries if query is not executed / throws an error
 - [ ] Hash algo is needed to store password in database
+- [ ] After login if admin/users click login page it should redirect to index.php/admin-page.php 
 
 ## Directory Structure
 
@@ -38,13 +39,17 @@ railway-reservation-system
 ├── index.php
 ├── admin-login.php
 ├── admin-page.php
+├── release-train.php
+├── view-users.php
+├── view-available-trains.php
+├── view-bookings.php
 ├── register.php
 ├── user.php
 ├── logout.php
 ├── README.md
 │  
 ├── railwaydb.sql
-|── demo1.gif
+|── preview
 
 
 ```

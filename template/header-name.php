@@ -12,9 +12,10 @@
     <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky">
   <a class="navbar-brand brand" href="index.php">eRail</a>
-  <a class="navbar-brand brand justify-content-right" href="#">Welcome <?php echo $welcome_name ?></a>
+ 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
@@ -26,8 +27,6 @@
       <li class="nav-item">
         <a class="nav-link" href="logout.php">Logout</a>
       </li>
-      
     </ul>
-    
   </div>
 </nav>

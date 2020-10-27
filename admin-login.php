@@ -55,7 +55,7 @@
   </label>
   <label>
     <p class="label-txt">ENTER YOUR PASSWORD</p>
-    <input type="text" class="input" name="password" value="<?php echo htmlspecialchars($password) ?>">
+    <input type="password" class="input" name="password" value="<?php echo htmlspecialchars($password) ?>">
     <div class="line-box">
       <div class="line"></div>
     </div>
