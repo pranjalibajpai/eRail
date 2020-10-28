@@ -2,7 +2,7 @@
 
 ## Demo
 
-![demo](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/demo1.gif)
+![demo](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/demo1.gif)
 
 ## Things Done & Assumptions Made
 - Admins are added in the table - admins manually
