@@ -21,6 +21,13 @@
 - [ ] Hash algo is needed to store password in database
 - [ ] After login if admin/users click login page it should redirect to index.php/admin-page.php 
 
+## Schema
+
+- ### admins - Username, Password
+- ### users - Username, Full Name, Email, Address, Password
+- ### trains - Train Number, Date, Num AC, Num Sleeper
+ 
+
 ## Directory Structure
 
 ```
