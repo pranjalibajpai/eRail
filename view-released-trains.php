@@ -5,7 +5,7 @@
         header('Location: admin-login.php');
     }
     include "config/connection.php";
-    $sql = "SELECT * FROM trains ORDER BY Date"; 
+    $sql = "SELECT * FROM trains ORDER BY train_date"; 
     $result = $conn->query($sql); 
     $conn->close();  
 
@@ -52,10 +52,10 @@
                 { 
              ?> 
             <tr> 
-                <td><?php echo $rows['Train Number'];?></td> 
-                <td><?php echo $rows['Date'];?></td> 
-                <td><?php echo $rows['Num AC'];?></td> 
-                <td><?php echo $rows['Num Sleeper'];?></td> 
+                <td><?php echo $rows['train_number'];?></td> 
+                <td><?php echo $rows['train_date'];?></td> 
+                <td><?php echo $rows['num_ac_coach'];?></td> 
+                <td><?php echo $rows['num_sleeper_coach'];?></td> 
             </tr> 
             <?php 
                 } 
