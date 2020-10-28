@@ -23,9 +23,19 @@
 
 ## Schema
 
-- ### admins - Username, Password
-- ### users - Username, Full Name, Email, Address, Password
-- ### trains - Train Number, Date, Num AC, Num Sleeper
+- ### admins - username, password
+- ### users - username, full_name, email, address, password
+- ### trains - train_number, train_date, num_ac_coach, num_sleeper_coach
+
+## Stored Procedures
+
+## Triggers
+- admins
+    - 
+- users
+    - 
+- trains
+    - 
  
 
 ## Directory Structure
