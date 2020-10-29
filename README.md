@@ -35,8 +35,12 @@
 - ### trains - train_number, train_date, num_ac_coach, num_sleeper_coach
 
 ## Stored Procedures
-- check_email_registered(varchar(50))
-- check_username_registered(varchar(10))
+
+- check_email_registered(email varchar(50))
+- check_username_registered(username varchar(10))
+- check_admin_credentials(n varchar(10), p varchar(50))
+- check user_credentials(n varchar(10), p varchar(50))
+
 
 ## Triggers
 - ### admins
