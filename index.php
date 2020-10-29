@@ -2,6 +2,10 @@
     session_start();
     include "config/connection.php";
 
+    if(isset($_SESSION['username'])){
+      header('Location: user.php');
+    }
+
     $errors = array('username' => '', 'password' => '', 'authenticate' => '');
     $username = $password = '';
 
@@ -22,7 +26,7 @@
             $username = $conn->real_escape_string($username);
             $password = $conn->real_escape_string($password);
             //CHECK CORRECT USERNAME PASSWORD
-            $query1 = "SELECT * FROM users WHERE Username = '$username' and Password = '$password' ";
+            $query1 = "SELECT * FROM users WHERE username = '$username' and password = '$password' ";
             $result = $conn->query($query1);
             if($result->num_rows == 1){
                 $_SESSION['username'] = $username;
@@ -49,7 +53,7 @@
     <div class="line-box">
       <div class="line"></div>
     </div>
-    <p class= "bg-danger"><?php echo htmlspecialchars($errors['username'])?></p>
+    <p class= "bg-danger text-white"><?php echo htmlspecialchars($errors['username'])?></p>
   </label>
   <label>
     <p class="label-txt">ENTER YOUR PASSWORD</p>
@@ -57,9 +61,9 @@
     <div class="line-box">
       <div class="line"></div>
     </div>
-    <p class= "bg-danger"><?php echo htmlspecialchars($errors['password'])?></p>
+    <p class= "bg-danger text-white"><?php echo htmlspecialchars($errors['password'])?></p>
   </label>
-  <p class= "bg-danger"><?php echo htmlspecialchars($errors['authenticate'])?></p>
+  <p class= "bg-danger text-white"><?php echo htmlspecialchars($errors['authenticate'])?></p>
   <button type="submit" name="signin" value="submit">Sign-In</button>
   <a href="register.php" class="register">Not A Member? Register</a>
 </form>

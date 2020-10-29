@@ -26,7 +26,7 @@
 
             //CHECK USERNAME ALREADY EXISTED 
             $username = $conn->real_escape_string($username);
-            $query2 = "SELECT * FROM users WHERE Username = '$username' ";
+            $query2 = "SELECT * FROM users WHERE username = '$username' ";
             $result = $conn->query($query2);
 
 
@@ -44,7 +44,7 @@
 
             //CHECK EMAIL ALREADY REGISTERED
             $email = $conn->real_escape_string($email);
-            $query3 = "SELECT * FROM users WHERE Email = '$email' ";
+            $query3 = "SELECT * FROM users WHERE email = '$email' ";
             $result = $conn->query($query3);
 
 
@@ -99,7 +99,7 @@
     <div class="line-box">
       <div class="line"></div>
     </div>
-    <p class= "bg-danger"><?php echo htmlspecialchars($errors['fullname'])?></p>
+    <p class= "bg-danger text-white"><?php echo htmlspecialchars($errors['fullname'])?></p>
   </label>
   <label>
     <p class="label-txt">USERNAME</p>
@@ -107,7 +107,7 @@
     <div class="line-box">
       <div class="line"></div>
     </div>
-    <p class= "bg-danger"><?php echo htmlspecialchars($errors['username'])?></p>
+    <p class= "bg-danger text-white"><?php echo htmlspecialchars($errors['username'])?></p>
   </label>
   <label>
     <p class="label-txt">EMAIL</p>
@@ -115,7 +115,7 @@
     <div class="line-box">
       <div class="line"></div>
     </div>
-    <p class= "bg-danger"><?php echo htmlspecialchars($errors['email'])?></p>
+    <p class= "bg-danger text-white"><?php echo htmlspecialchars($errors['email'])?></p>
   </label>
   <label>
     <p class="label-txt">ADDRESS</p>
@@ -123,7 +123,7 @@
     <div class="line-box">
       <div class="line"></div>
     </div>
-    <p class= "bg-danger"><?php echo htmlspecialchars($errors['address'])?></p>
+    <p class= "bg-danger text-white"><?php echo htmlspecialchars($errors['address'])?></p>
   </label>
   <label>
     <p class="label-txt">PASSWORD</p>
@@ -131,7 +131,7 @@
     <div class="line-box">
       <div class="line"></div>
     </div>
-    <p class= "bg-danger"><?php echo htmlspecialchars($errors['password'])?></p>
+    <p class= "bg-danger text-white"><?php echo htmlspecialchars($errors['password'])?></p>
   </label>
   <label>
     <p class="label-txt">CONFIRM PASSWORD</p>
@@ -139,7 +139,7 @@
     <div class="line-box">
       <div class="line"></div>
     </div>
-    <p class= "bg-danger"><?php echo htmlspecialchars($errors['confirmp'])?></p>
+    <p class= "bg-danger text-white"><?php echo htmlspecialchars($errors['confirmp'])?></p>
   </label>
   <button type="submit" name="register" value="submit">Register</button>
 </form>

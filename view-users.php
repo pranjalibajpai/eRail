@@ -52,10 +52,10 @@
                 { 
              ?> 
             <tr> 
-                <td><?php echo $rows['Username'];?></td> 
-                <td><?php echo $rows['Full Name'];?></td> 
-                <td><?php echo $rows['Email'];?></td> 
-                <td><?php echo $rows['Address'];?></td> 
+                <td><?php echo $rows['username'];?></td> 
+                <td><?php echo $rows['full_name'];?></td> 
+                <td><?php echo $rows['email'];?></td> 
+                <td><?php echo $rows['address'];?></td> 
             </tr> 
             <?php 
                 } 

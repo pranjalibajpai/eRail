@@ -6,8 +6,8 @@
     }
     include "config/connection.php";
 
-    $errors = array('train_number' => '', 'date' => '', 'num_ac' => '', 'num_sleeper' => '');
-    $train_number = $date = $num_ac = $num_sleeper = ''; 
+    $errors = array('train_number' => '', 'date' => '', 'num_ac' => '', 'num_sleeper' => '', 'checks' => '');
+    $train_number = $date = $num_ac = $num_sleeper = $checks = ''; 
    
     if(isset($_POST['release'])){
         $train_number = $_POST['train_number'];
@@ -21,14 +21,19 @@
         if(empty($date)){
 			$errors['date'] = 'Date is required';
         }
-        if(empty($num_ac)){
-			$errors['num_ac'] = 'Please enter number of AC Coaches';
+        
+        // INSERT INTO TRAINS
+        if(! array_filter($errors)){
+            $query1 = "INSERT INTO trains VALUES ('$train_number', '$date', '$num_ac', '$num_sleeper')";
+            if ($conn->query($query1) === TRUE) {
+                header('Location: admin-page.php');
+              }
+            else{
+                // ERROR OF before_release_train Trigger
+                $errors['checks'] = $conn->error;
+            }  
+            $conn->close();
         }
-        if(empty($num_sleeper)){
-			$errors['num_sleeper'] = 'Please enter number of Sleeper Coaches';
-        }
-
-        //***TODO -- CHECK BEFORE RELEASING WHETHER N SAME DATE SAME TRAIN NUMBER IS NOT THERE */
     }
     $welcome_name = $_SESSION['username'] ?? 'Guest';
 ?>
@@ -42,11 +47,11 @@
     <h3 class="heading">Release New Train</h3> <br>
     <label>
     <p class="label-txt">TRAIN NUMBER</p>
-    <input type="number" class="input" name="train_number" value="<?php echo htmlspecialchars($train_number) ?>">
+    <input type="number" class="input" min=0 name="train_number" value="<?php echo htmlspecialchars($train_number) ?>">
     <div class="line-box">
         <div class="line"></div>
     </div>
-    <p class= "bg-danger"><?php echo htmlspecialchars($errors['train_number'])?></p>
+    <p class= "bg-danger text-white"><?php echo htmlspecialchars($errors['train_number'])?></p>
     </label>
     <label>
     <p class="label-txt">DATE</p>
@@ -54,24 +59,25 @@
     <div class="line-box">
         <div class="line"></div>
     </div>
-    <p class= "bg-danger"><?php echo htmlspecialchars($errors['date'])?></p>
+    <p class= "bg-danger text-white"><?php echo htmlspecialchars($errors['date'])?></p>
     </label>
     <label>
     <p class="label-txt">NUMBER OF AC COACHES</p>
-    <input type="number" class="input" name="num_ac" value="<?php echo htmlspecialchars($num_ac) ?>">
+    <input type="number" class="input" min=0 name="num_ac" value="<?php echo htmlspecialchars($num_ac) ?>">
     <div class="line-box">
         <div class="line"></div>
     </div>
-    <p class= "bg-danger"><?php echo htmlspecialchars($errors['num_ac'])?></p>
+    <p class= "bg-danger text-white"><?php echo htmlspecialchars($errors['num_ac'])?></p>
     </label>
     <label>
     <p class="label-txt">NUMBER OF SLEEPER COACHES</p>
-    <input type="number" class="input" name="num_sleeper" value="<?php echo htmlspecialchars($num_sleeper) ?>">
+    <input type="number" class="input" name="num_sleeper" min=0 value="<?php echo htmlspecialchars($num_sleeper) ?>">
     <div class="line-box">
         <div class="line"></div>
     </div>
-    <p class= "bg-danger"><?php echo htmlspecialchars($errors['num_sleeper'])?></p>
+    <p class= "bg-danger text-white"><?php echo htmlspecialchars($errors['num_sleeper'])?></p>
     </label>
+    <p class= "bg-danger text-white"><?php echo htmlspecialchars($errors['checks'])?></p>
     <a href="admin-page.php" class="register">Back</a>
     <button type="submit" name="release" value="submit">Release</button>
 </form>

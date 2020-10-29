@@ -19,7 +19,7 @@
 - [x] Change type="text" to type="password" in admin-login.php, index.php, register.php to Hide Password
 - [ ] Add condition to all queries if query is not executed / throws an error
 - [ ] Hash algo is needed to store password in database
-- [ ] After login if admin/users click login page it should redirect to index.php/admin-page.php 
+- [x] After login if admin/users click login page it should redirect to index.php/admin-page.php 
 
 ## Schema
 
@@ -35,7 +35,10 @@
 - users
     - 
 - trains
-    - 
+    - before_train_release [BEFORE INSERT TRIGGER]
+        1. Checks if train is released atleast one month before and journey date and also atmost 4 months in advance.
+        2. Checks whether same train is already released on the same date or not.
+        3. Checks if number of coaches is not zero(atleast one coach is present - AC/Sleeper).
  
 
 ## Directory Structure
@@ -65,7 +68,9 @@ railway-reservation-system
 ├── logout.php
 ├── README.md
 │  
-├── railwaydb.sql
+├── sql
+│   ├── railwaydb.sql
+│   ├── triggers.sql
 |── preview
 
 
