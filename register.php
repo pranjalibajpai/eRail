@@ -2,7 +2,7 @@
 
     include "config/connection.php";
 
-    $errors = array('fullname' => '', 'username' => '', 'email' => '', 'address' => '', 'password' => '', 'confirmp' => '');
+    $errors = array('fullname' => '', 'username' => '', 'email' => '', 'address' => '', 'password' => '', 'confirmp' => '', 'error' => '');
     $fullname = $username = $email = $address = $password = $confirmp = '';
 
     if(isset($_POST['register'])){
@@ -18,70 +18,64 @@
 		} 
 		if(empty($username)){
 			$errors['username'] = 'Username is required';
-        }
-        else{
+    }
+    else{
 			if(!preg_match('/^[a-zA-Z]+$/', $username)){
 				$errors['username'] .= 'Username must consist of letters only';
-            }
+      }
 
-            //CHECK USERNAME ALREADY EXISTED 
-            $username = $conn->real_escape_string($username);
-            $query2 = "SELECT * FROM users WHERE username = '$username' ";
-            $result = $conn->query($query2);
-
-
-            if($result->num_rows > 0){
-                $errors['username'] .= 'Username already taken';
-            }
-		}
-        if(empty($email)){
+      //CHECK USERNAME ALREADY EXISTED 
+      $username = $conn->real_escape_string($username);
+      $query2 = "CALL check_username_registered('$username');";
+      if ($conn->query($query2) === FALSE) {
+        $errors['username'] .= $conn->error;
+      }
+    }
+    
+    if(empty($email)){
 			$errors['email'] = 'An Email is required';
-        }
-        else {
-            if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-                $errors['email'] = 'Email must be a valid email address';
-            }
+    }
+    else {
+      if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+          $errors['email'] = 'Email must be a valid email address';
+      }
 
-            //CHECK EMAIL ALREADY REGISTERED
-            $email = $conn->real_escape_string($email);
-            $query3 = "SELECT * FROM users WHERE email = '$email' ";
-            $result = $conn->query($query3);
-
-
-            if($result->num_rows > 0){
-                $errors['email'] .= 'Email Already Registered';
-            }
-        }    
+      //CHECK EMAIL ALREADY REGISTERED
+      $email = $conn->real_escape_string($email);
+      $query3 = "CALL check_email_registered('$email');";
+      if ($conn->query($query3) === FALSE) {
+        $errors['email'] = $conn->error;
+      }
+    }    
         
-        if(empty($address)){
-			$errors['address'] = 'Address is required';
-        }
-        if(empty($password)){
-			$errors['password'] = 'Password is required';
-        }
-        else if(strlen($password) < 8){
-            $errors['password'] .= 'Password must be minimum 8 characters';
-        }
-
-        if(empty($confirmp) || $confirmp != $password){
-            $errors['confirmp'] = 'Confirm your password again';
-        } 
-        
-        // When no errors redirect to index.php and insert values in user table
-        if(! array_filter($errors)){
-
-            $query1 = "INSERT INTO users VALUES ('$fullname', '$username', '$email', '$address', '$password')";
-            if ($conn->query($query1) === TRUE) {
-                echo "New record created successfully";
-              } else {
-                echo "Error: " . $query1 . "<br>" . $conn->error;
-              }
-              
-            $conn->close();
-            header('Location: index.php');
-        }
+    if(empty($address)){
+      $errors['address'] = 'Address is required';
+    }
+    if(empty($password)){
+      $errors['password'] = 'Password is required';
+    }
+    else if(strlen($password) < 8){
+      $errors['password'] .= 'Password must be minimum 8 characters';
     }
 
+    if(empty($confirmp) || $confirmp != $password){
+      $errors['confirmp'] = 'Confirm your password again';
+    } 
+        
+    // When no errors redirect to index.php and insert values in user table
+    if(! array_filter($errors)){
+
+      $query1 = "INSERT INTO users VALUES ('$fullname', '$username', '$email', '$address', '$password')";
+      if ($conn->query($query1) === FALSE) {
+        $errors['error'] = $conn->error;
+      }
+      else{
+        $conn->close();
+        header('Location: index.php');
+      }  
+      
+    }
+  }
 ?>
 
 
@@ -141,6 +135,7 @@
     </div>
     <p class= "bg-danger text-white"><?php echo htmlspecialchars($errors['confirmp'])?></p>
   </label>
+  <p class= "bg-danger text-white"><?php echo htmlspecialchars($errors['error'])?></p>
   <button type="submit" name="register" value="submit">Register</button>
 </form>
 

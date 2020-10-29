@@ -6,14 +6,21 @@
 
 ## Things Done & Assumptions Made
 - Admins are added in the table - admins manually
+- If user/admin logs out & then access the page through URL then Access is Denied
 
 ## Validations
-- Password - minimun 8 characters
-- Username - Must contain letters only
-- Full Name, Address - must not be empty
-- Email - should be valid and not empty
-- For login (both admins & users) Username & Password should not be empty & must be valid
-- If user/admin logouts then access the page through URL then Access is Denied
+- Login (Admin & User)
+    - USername - Not Empty & Valid
+    - Password - Not Empty & Valid
+- Register
+    - Password - minimun 8 characters
+    - Username - Contain letters only, Shouldn't Already Taken
+    - Full Name, Address - Not Empty
+    - Email - Valid, Not Empty, Shouldn't Already Registered
+- Release Train
+    - Train Number - Not Empty & Number
+    - Date - Not Empty & Between CURRENT_DATE + 1 Month & CURRENT_DATE + 4 Month
+    - Number of Coaches - Positive & Total should be >= 1
 
 ## ToDo
 - [x] Change type="text" to type="password" in admin-login.php, index.php, register.php to Hide Password
@@ -28,6 +35,8 @@
 - ### trains - train_number, train_date, num_ac_coach, num_sleeper_coach
 
 ## Stored Procedures
+- check_email_registered(varchar(50))
+- check_username_registered(varchar(10))
 
 ## Triggers
 - admins
@@ -55,6 +64,7 @@ railway-reservation-system
 │   ├── footer.php
 │   ├── header-name.php
 │   ├── header.php
+│   ├── pagination.php
 │  
 ├── index.php
 ├── admin-login.php
@@ -71,6 +81,7 @@ railway-reservation-system
 ├── sql
 │   ├── railwaydb.sql
 │   ├── triggers.sql
+│   ├── stored_procedures.sql
 |── preview
 
 
