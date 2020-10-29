@@ -27,18 +27,16 @@
 
         
         if(! array_filter($errors)){
-
             $username = $conn->real_escape_string($username);
             $password = $conn->real_escape_string($password);
             //CHECK CORRECT USERNAME PASSWORD
-            $query1 = "SELECT * FROM users WHERE username = '$username' and password = '$password' ";
-            $result = $conn->query($query1);
-            if($result->num_rows == 1){
-                $_SESSION['username'] = $username;
-                header('Location: user.php');
-            } 
+            $query1 = "CALL check_user_credentials('$username', '$password')";
+            if ($conn->query($query1) === FALSE) {
+              $errors['authenticate'] .= $conn->error;
+            }
             else{
-                $errors['authenticate'] = 'Invalid Username or Password';
+              $_SESSION['username'] = $username;
+              header('Location: user.php');
             }
             $conn->close();
         }

@@ -65,3 +65,73 @@ BEGIN
     END IF;
 END$$
 DELIMITER ;
+
+-- CHECK ADMIN CREDENTIALS DURING LOGIN
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_admin_credentials`(IN `n` VARCHAR(10), IN `p` VARCHAR(50))
+    NO SQL
+BEGIN
+	DECLARE name VARCHAR(10);
+	DECLARE pass VARCHAR(50);
+    DECLARE message VARCHAR(128) DEFAULT '';
+    DECLARE finished INT DEFAULT 0;
+	DEClARE user_info CURSOR
+    	FOR SELECT * FROM admins;
+	DECLARE CONTINUE HANDLER 
+    	FOR NOT FOUND SET finished = 1;
+        
+    OPEN user_info;
+
+	get_info: LOOP
+		FETCH user_info INTO name, pass;
+		IF finished = 1 THEN 
+			LEAVE get_info;
+		END IF;
+        IF name = n AND pass = p THEN
+        	SET message = 'Found';
+        END IF;
+ 
+	END LOOP get_info;
+	CLOSE user_info;
+    
+    IF message like '' THEN
+		SIGNAL SQLSTATE '45000'
+    	SET MESSAGE_TEXT = 'Invalid Username or Password';
+    END IF;
+END$$
+DELIMITER ;
+
+--CHECK USER CREDENTIALS DURING LOGIN
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_user_credentials`(IN `n` VARCHAR(10), IN `p` VARCHAR(50))
+    NO SQL
+BEGIN
+	DECLARE name VARCHAR(10);
+	DECLARE pass VARCHAR(50);
+    DECLARE message VARCHAR(128) DEFAULT '';
+    DECLARE finished INT DEFAULT 0;
+	DEClARE user_info CURSOR
+    	FOR SELECT username, password FROM users;
+	DECLARE CONTINUE HANDLER 
+    	FOR NOT FOUND SET finished = 1;
+        
+    OPEN user_info;
+
+	get_info: LOOP
+		FETCH user_info INTO name, pass;
+		IF finished = 1 THEN 
+			LEAVE get_info;
+		END IF;
+        IF name = n AND pass = p THEN
+        	SET message = 'Found';
+        END IF;
+ 
+	END LOOP get_info;
+	CLOSE user_info;
+    
+    IF message like '' THEN
+		SIGNAL SQLSTATE '45000'
+    	SET MESSAGE_TEXT = 'Invalid Username or Password';
+    END IF;
+END$$
+DELIMITER ;
