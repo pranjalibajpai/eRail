@@ -39,11 +39,11 @@
 - check_username_registered(varchar(10))
 
 ## Triggers
-- admins
+- ### admins
     - 
-- users
+- ### users
     - 
-- trains
+- ### trains
     - before_train_release [BEFORE INSERT TRIGGER]
         1. Checks if train is released atleast one month before and journey date and also atmost 4 months in advance.
         2. Checks whether same train is already released on the same date or not.
