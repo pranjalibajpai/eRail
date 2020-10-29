@@ -1,6 +1,6 @@
 -- CHECK EMAIL ID ALREADY REGISTERED OR NOT
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `check_email_registered`(IN `email` VARCHAR(50))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_email_registered`(IN `in_email` VARCHAR(50))
     NO SQL
 BEGIN
 	DECLARE email_id VARCHAR(50);
@@ -18,7 +18,7 @@ BEGIN
 		IF finished = 1 THEN 
 			LEAVE get_email;
 		END IF;
-        IF email_id = email THEN
+        IF email_id = in_email THEN
         	SET message = 'Email id already registered';
         END IF;
  
@@ -31,10 +31,9 @@ BEGIN
     END IF;
 END$$
 DELIMITER ;
-
 -- CHECK USERNAME ALREADY TAKEN OR NOT
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `check_username_registered`(IN `username` VARCHAR(10))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_username_registered`(IN `in_username` VARCHAR(10))
     NO SQL
 BEGIN
 	DECLARE name VARCHAR(10);
@@ -52,7 +51,7 @@ BEGIN
 		IF finished = 1 THEN 
 			LEAVE get_name;
 		END IF;
-        IF name = username THEN
+        IF name = in_username THEN
         	SET message = 'Username already taken';
         END IF;
  
@@ -65,7 +64,6 @@ BEGIN
     END IF;
 END$$
 DELIMITER ;
-
 -- CHECK ADMIN CREDENTIALS DURING LOGIN
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `check_admin_credentials`(IN `n` VARCHAR(10), IN `p` VARCHAR(50))

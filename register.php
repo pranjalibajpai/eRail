@@ -3,7 +3,7 @@
     include "config/connection.php";
 
     $errors = array('fullname' => '', 'username' => '', 'email' => '', 'address' => '', 'password' => '', 'confirmp' => '', 'error' => '');
-    $fullname = $username = $email = $address = $password = $confirmp = '';
+    $fullname = $username = $email = $address = $password = $confirmp = $error = '';
 
     if(isset($_POST['register'])){
         $fullname = $_POST['fullname'];
@@ -28,7 +28,7 @@
       $username = $conn->real_escape_string($username);
       $query2 = "CALL check_username_registered('$username');";
       if ($conn->query($query2) === FALSE) {
-        $errors['username'] .= $conn->error;
+        $errors['username'] = $conn->error;
       }
     }
     
@@ -42,7 +42,7 @@
 
       //CHECK EMAIL ALREADY REGISTERED
       $email = $conn->real_escape_string($email);
-      $query3 = "CALL check_email_registered('$email');";
+      $query3 = "CALL check_email_registered('$email')";
       if ($conn->query($query3) === FALSE) {
         $errors['email'] = $conn->error;
       }
