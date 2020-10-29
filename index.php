@@ -3,7 +3,12 @@
     include "config/connection.php";
 
     if(isset($_SESSION['username'])){
-      header('Location: user.php');
+      if($_SESSION['username'] == 'admin1'){
+        header('Location: admin-page.php');
+      }
+      else{
+        header('Location: user.php');
+      }
     }
 
     $errors = array('username' => '', 'password' => '', 'authenticate' => '');
