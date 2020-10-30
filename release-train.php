@@ -3,7 +3,7 @@
     //To prevent user to access the page without login
     if(isset($_SESSION['username'])){
         if($_SESSION['username'] != 'admin1'){
-          header('Location: index.php');
+          header('Location: user.php');
         }
     }
     else{

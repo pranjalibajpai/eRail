@@ -2,7 +2,7 @@
     session_start();
     //To prevent user to access the page without login
     if(!isset($_SESSION['username'])){
-        header('Location: admin-login.php');
+        header('Location: index.php');
     }
     include "config/connection.php";
 

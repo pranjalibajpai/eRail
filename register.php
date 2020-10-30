@@ -1,6 +1,15 @@
 <?php
-
     include "config/connection.php";
+
+    //REDIRECTION
+    if(isset($_SESSION['username'])){
+      if($_SESSION['username'] == 'admin1'){
+          header('Location: admin-page.php');
+      }
+      else{
+        header('Location: user.php');
+      }
+    }
 
     $errors = array('fullname' => '', 'username' => '', 'email' => '', 'address' => '', 'password' => '', 'confirmp' => '', 'error' => '');
     $fullname = $username = $email = $address = $password = $confirmp = $error = '';
