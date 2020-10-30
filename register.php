@@ -145,6 +145,7 @@
     <p class= "bg-danger text-white"><?php echo htmlspecialchars($errors['confirmp'])?></p>
   </label>
   <p class= "bg-danger text-white"><?php echo htmlspecialchars($errors['error'])?></p>
+  <a href="index.php" class="register">Back</a>
   <button type="submit" name="register" value="submit">Register</button>
 </form>
 
