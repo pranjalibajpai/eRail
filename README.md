@@ -27,6 +27,7 @@
 - [ ] Add condition to all queries if query is not executed / throws an error
 - [ ] Hash algo is needed to store password in database
 - [x] After login if admin/users click login page it should redirect to index.php/admin-page.php 
+- [ ] Add number of available seats in view trains 
 
 ## Schema
 
@@ -79,6 +80,8 @@ railway-reservation-system
 ├── view-bookings.php
 ├── register.php
 ├── user.php
+├── book-ticket.php
+├── view-user-booking.php
 ├── logout.php
 ├── README.md
 │  
