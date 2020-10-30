@@ -54,6 +54,16 @@
         2. Checks whether same train is already released on the same date or not.
         3. Checks if number of coaches is not zero(atleast one coach is present - AC/Sleeper).
  
+ 
+## How to run locally 
+- Install [XAMPP](https://www.apachefriends.org/index.html) on your system
+- Clone the repository in ```C:/Program Files/XAMPP/htdocs``` or Download the zip file & Copy in the ```htdocs``` folder
+- Open XAMPP Control Panel & Click Start under Actions in Apache & MySQL
+- Click on ```Admin``` in MySQL in XAMPP Control Panel
+- Create a new database ```railwayDB```  and then click Import 
+- Select ```sql/railwayDB.sql``` & database will be loaded
+- Open ```http://localhost/railway-reservation-system``` on your browser
+- Now you are all set to start!
 
 ## Directory Structure
 
