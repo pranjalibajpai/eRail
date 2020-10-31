@@ -4,6 +4,8 @@
 
 ![demo](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/demo2.gif)
 
+![demo2]https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/demo3.gif)
+
 ## Things Done & Assumptions Made
 - Admins are added in the table - admins manually
 - If user/admin logs out & then access the page through URL then Access is Denied
@@ -47,10 +49,6 @@
 
 
 ## Triggers
-- ### admins
-    - 
-- ### users
-    - 
 - ### trains
     - before_train_release [BEFORE INSERT TRIGGER]
         1. Checks if train is released atleast one month before and journey date and also atmost 4 months in advance.
@@ -78,33 +76,37 @@ railway-reservation-system
 ├── css
 │   ├── style.css
 |
+├── sql
+│   ├── railwaydb.sql
+│   ├── triggers.sql
+│   ├── stored_procedures.sql
+|
 ├── template
 │   ├── footer.php
 │   ├── header-name.php
 │   ├── header.php
 │   ├── pagination.php
 │  
-├── index.php
 ├── admin-login.php
 ├── admin-page.php
-├── release-train.php
-├── view-users.php
-├── view-available-trains.php
-├── view-bookings.php
-├── register.php
-├── user.php
 ├── book-ticket.php
-├── confirm-ticket.php
-├── passenger-details.php
-├── view-user-booking.php
+├── get-ticket.php
+├── index.php
 ├── logout.php
+├── not-available.php
+├── passenger-details.php
+├── register.php
+├── release-train.php
+├── user.php
+├── view-bookings.php
+├── view-released-trains.php
+├── view-user-bookings.php
+├── view-users.php
+|
 ├── README.md
+├── Project SPecification.pdf
 │  
-├── sql
-│   ├── railwaydb.sql
-│   ├── triggers.sql
-│   ├── stored_procedures.sql
+|── images
 |── preview
-
 
 ```
