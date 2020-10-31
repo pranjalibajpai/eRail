@@ -64,6 +64,7 @@ BEGIN
     END IF;
 END$$
 DELIMITER ;
+
 -- CHECK ADMIN CREDENTIALS DURING LOGIN
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `check_admin_credentials`(IN `n` VARCHAR(10), IN `p` VARCHAR(50))
@@ -130,6 +131,49 @@ BEGIN
     IF message like '' THEN
 		SIGNAL SQLSTATE '45000'
     	SET MESSAGE_TEXT = 'Invalid Username or Password';
+    END IF;
+END$$
+DELIMITER ;
+
+-- CHECK VALIDITY OF TRAIN NUMBER & DATE
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_valid_train`(IN `num` INT(11), IN `date` DATE)
+    NO SQL
+BEGIN
+	DECLARE n INT;
+	DECLARE d DATE;
+    DECLARE m1 VARCHAR(128) DEFAULT '';
+    DECLARE m2 VARCHAR(128) DEFAULT '';
+    DECLARE finished INT DEFAULT 0;
+	DEClARE train_info CURSOR
+    	FOR SELECT train_number, train_date FROM trains;
+	DECLARE CONTINUE HANDLER 
+    	FOR NOT FOUND SET finished = 1;
+    
+    IF date < CURRENT_DATE() THEN
+    	SET m1 = 'Please enter valid date';
+    END IF;
+    
+    OPEN train_info;
+
+	get_info: LOOP
+		FETCH train_info INTO n, d;
+		IF finished = 1 THEN 
+			LEAVE get_info;
+		END IF;
+        IF num = n AND date = d THEN
+        	SET m2 = 'Found';
+        END IF;
+ 
+	END LOOP get_info;
+	CLOSE train_info;
+    
+    IF m1 not like '' THEN
+		SIGNAL SQLSTATE '45000'
+    	SET MESSAGE_TEXT = m1;
+    ELSEIF m2 like '' THEN
+    	SIGNAL SQLSTATE '45000'
+    	SET MESSAGE_TEXT = 'Train not yet released!';
     END IF;
 END$$
 DELIMITER ;
