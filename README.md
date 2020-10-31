@@ -41,6 +41,9 @@
 - check_username_registered(username varchar(10))
 - check_admin_credentials(n varchar(10), p varchar(50))
 - check user_credentials(n varchar(10), p varchar(50))
+- check_valid_train(num INT(11), date Date)
+    - Checks date selected by the user is not in the past
+    - Checks Train Number & date has been released by admin
 
 
 ## Triggers
@@ -91,6 +94,8 @@ railway-reservation-system
 ├── register.php
 ├── user.php
 ├── book-ticket.php
+├── confirm-ticket.php
+├── passenger-details.php
 ├── view-user-booking.php
 ├── logout.php
 ├── README.md
