@@ -4,7 +4,7 @@
 
 ![demo](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/demo2.gif)
 
-![demo2]https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/demo3.gif)
+![demo2](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/demo3.gif)
 
 ## Things Done & Assumptions Made
 - Admins are added in the table - admins manually
