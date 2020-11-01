@@ -4,7 +4,7 @@
 
 ![demo](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/demo2.gif)
 
-![demo2]https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/demo3.gif)
+![demo2](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/demo3.gif)
 
 ## Things Done & Assumptions Made
 - Admins are added in the table - admins manually
@@ -30,6 +30,7 @@
 - [ ] Hash algo is needed to store password in database
 - [x] After login if admin/users click login page it should redirect to index.php/admin-page.php 
 - [ ] Add number of available seats in view trains 
+- [ ] Make stored procedures for validation(not empty)
 
 ## Schema
 
@@ -70,6 +71,7 @@
 
 ```
 railway-reservation-system
+
 ├─ admin-login.php
 ├─ admin-page.php
 ├─ book-ticket.php
@@ -111,5 +113,4 @@ railway-reservation-system
 ├─ view-released-trains.php
 ├─ view-user-booking.php
 └─ view-users.php
-
 ```
