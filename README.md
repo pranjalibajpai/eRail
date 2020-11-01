@@ -30,6 +30,7 @@
 - [ ] Hash algo is needed to store password in database
 - [x] After login if admin/users click login page it should redirect to index.php/admin-page.php 
 - [ ] Add number of available seats in view trains 
+- [ ] Make stored procedures for validation(not empty)
 
 ## Schema
 
@@ -104,7 +105,7 @@ railway-reservation-system
 ├── view-users.php
 |
 ├── README.md
-├── Project SPecification.pdf
+├── Project Specification.pdf
 │  
 |── images
 |── preview
