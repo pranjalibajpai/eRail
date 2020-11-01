@@ -67,6 +67,9 @@
 - Open http://localhost/railway-reservation-system on your browser
 - Now you are all set to start!
 
+## ER Diagram
+![er diagram](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/ER%20Diagram.png)
+
 ## Directory Structure
 
 ```
