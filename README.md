@@ -70,43 +70,46 @@
 
 ```
 railway-reservation-system
-├── config
-│   ├── connection.php
-|
-├── css
-│   ├── style.css
-|
-├── sql
-│   ├── railwaydb.sql
-│   ├── triggers.sql
-│   ├── stored_procedures.sql
-|
-├── template
-│   ├── footer.php
-│   ├── header-name.php
-│   ├── header.php
-│   ├── pagination.php
-│  
-├── admin-login.php
-├── admin-page.php
-├── book-ticket.php
-├── get-ticket.php
-├── index.php
-├── logout.php
-├── not-available.php
-├── passenger-details.php
-├── register.php
-├── release-train.php
-├── user.php
-├── view-bookings.php
-├── view-released-trains.php
-├── view-user-bookings.php
-├── view-users.php
-|
-├── README.md
-├── Project SPecification.pdf
-│  
-|── images
-|── preview
+├─ admin-login.php
+├─ admin-page.php
+├─ book-ticket.php
+├─ config
+│  └─ connection.php
+├─ css
+│  └─ style.css
+├─ get-ticket.php
+├─ index.php
+├─ logout.php
+├─ not-available.php
+├─ passenger-details.php
+├─ preview
+│  ├─ admin-login.png
+│  ├─ admin-page.png
+│  ├─ demo1.gif
+│  ├─ demo2.gif
+│  ├─ demo3.gif
+│  ├─ home.png
+│  ├─ register.png
+│  ├─ release-train.png
+│  ├─ validate-register.png
+│  ├─ validate-release.png
+│  └─ view-users.png
+├─ Project Specification.pdf
+├─ README.md
+├─ register.php
+├─ release-train.php
+├─ sql
+│  ├─ stored_procedures.sql
+│  └─ triggers.sql
+├─ template
+│  ├─ footer.php
+│  ├─ header-name.php
+│  ├─ header.php
+│  └─ pagination.php
+├─ user.php
+├─ view-bookings.php
+├─ view-released-trains.php
+├─ view-user-booking.php
+└─ view-users.php
 
 ```
