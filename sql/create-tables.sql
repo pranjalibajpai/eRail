@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 03, 2020 at 08:01 PM
+-- Generation Time: Nov 03, 2020 at 08:14 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -56,7 +56,7 @@ CREATE TABLE `passenger` (
 CREATE TABLE `ticket` (
   `pnr_no` int(11) NOT NULL,
   `coach` varchar(50) NOT NULL,
-  `username` varchar(50) NOT NULL,
+  `booked_by` varchar(50) NOT NULL,
   `t_number` int(11) NOT NULL,
   `t_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -112,7 +112,7 @@ ALTER TABLE `passenger`
 --
 ALTER TABLE `ticket`
   ADD PRIMARY KEY (`pnr_no`),
-  ADD KEY `username` (`username`),
+  ADD KEY `username` (`booked_by`),
   ADD KEY `t_number` (`t_number`,`t_date`);
 
 --
@@ -142,7 +142,7 @@ ALTER TABLE `passenger`
 -- Constraints for table `ticket`
 --
 ALTER TABLE `ticket`
-  ADD CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`),
+  ADD CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`booked_by`) REFERENCES `user` (`username`),
   ADD CONSTRAINT `ticket_ibfk_2` FOREIGN KEY (`t_number`,`t_date`) REFERENCES `train` (`t_number`, `t_date`);
 
 --
