@@ -74,7 +74,7 @@
     // When no errors redirect to index.php and insert values in user table
     if(! array_filter($errors)){
 
-      $query1 = "INSERT INTO users VALUES ('$fullname', '$username', '$email', '$address', '$password')";
+      $query1 = "INSERT INTO user VALUES ('$username', '$fullname', '$email', '$address', '$password')";
       if ($conn->query($query1) === FALSE) {
         $errors['error'] = $conn->error;
       }

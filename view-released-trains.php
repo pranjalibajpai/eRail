@@ -7,11 +7,11 @@
     include "config/connection.php";
 
     // FOR PAGINATION
-    $sql = "SELECT * FROM trains ORDER BY train_date";
+    $sql = "SELECT * FROM train ORDER BY t_date";
 
     include "template/pagination.php";  
     
-    $sql = "SELECT *FROM trains ORDER BY train_date LIMIT " . $page_first_result . ',' . $results_per_page;  
+    $sql = "SELECT *FROM train ORDER BY t_date LIMIT " . $page_first_result . ',' . $results_per_page;  
     $result = $conn->query($sql); 
     $conn->close();  
 
@@ -58,10 +58,10 @@
                 { 
              ?> 
             <tr> 
-                <td><?php echo $rows['train_number'];?></td> 
-                <td><?php echo $rows['train_date'];?></td> 
-                <td><?php echo $rows['num_ac_coach'];?></td> 
-                <td><?php echo $rows['num_sleeper_coach'];?></td> 
+                <td><?php echo $rows['t_number'];?></td> 
+                <td><?php echo $rows['t_date'];?></td> 
+                <td><?php echo $rows['num_ac'];?></td> 
+                <td><?php echo $rows['num_sleeper'];?></td> 
             </tr> 
             <?php 
                 } 

@@ -7,7 +7,7 @@ BEGIN
     DECLARE message VARCHAR(128) DEFAULT '';
     DECLARE finished INT DEFAULT 0;
 	DEClARE user_email CURSOR
-    	FOR SELECT email FROM users;
+    	FOR SELECT email FROM user;
 	DECLARE CONTINUE HANDLER 
     	FOR NOT FOUND SET finished = 1;
         
@@ -40,7 +40,7 @@ BEGIN
     DECLARE message VARCHAR(128) DEFAULT '';
     DECLARE finished INT DEFAULT 0;
 	DEClARE user_name CURSOR
-    	FOR SELECT username FROM users;
+    	FOR SELECT username FROM user;
 	DECLARE CONTINUE HANDLER 
     	FOR NOT FOUND SET finished = 1;
         
@@ -75,7 +75,7 @@ BEGIN
     DECLARE message VARCHAR(128) DEFAULT '';
     DECLARE finished INT DEFAULT 0;
 	DEClARE user_info CURSOR
-    	FOR SELECT * FROM admins;
+    	FOR SELECT * FROM admin;
 	DECLARE CONTINUE HANDLER 
     	FOR NOT FOUND SET finished = 1;
         
@@ -110,7 +110,7 @@ BEGIN
     DECLARE message VARCHAR(128) DEFAULT '';
     DECLARE finished INT DEFAULT 0;
 	DEClARE user_info CURSOR
-    	FOR SELECT username, password FROM users;
+    	FOR SELECT username, password FROM user;
 	DECLARE CONTINUE HANDLER 
     	FOR NOT FOUND SET finished = 1;
         
@@ -146,7 +146,7 @@ BEGIN
     DECLARE m2 VARCHAR(128) DEFAULT '';
     DECLARE finished INT DEFAULT 0;
 	DEClARE train_info CURSOR
-    	FOR SELECT train_number, train_date FROM trains;
+    	FOR SELECT t_number, t_date FROM train;
 	DECLARE CONTINUE HANDLER 
     	FOR NOT FOUND SET finished = 1;
     

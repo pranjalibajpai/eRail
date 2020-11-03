@@ -13,11 +13,11 @@
     include "config/connection.php";
     
     // FOR PAGINATION
-    $sql = "SELECT * FROM users";
+    $sql = "SELECT * FROM user";
     
     include "template/pagination.php";
 
-    $sql = "SELECT *FROM users LIMIT " . $page_first_result . ',' . $results_per_page;  
+    $sql = "SELECT *FROM user LIMIT " . $page_first_result . ',' . $results_per_page;  
     $result = $conn->query($sql); 
     $conn->close();  
 
@@ -55,7 +55,7 @@
         <table> 
             <tr> 
                 <th>Username</th> 
-                <th>Full Name</th> 
+                <th>Name</th> 
                 <th>Email</th> 
                 <th>Address</th> 
             </tr> 
@@ -65,7 +65,7 @@
              ?> 
             <tr> 
                 <td><?php echo $rows['username'];?></td> 
-                <td><?php echo $rows['full_name'];?></td> 
+                <td><?php echo $rows['name'];?></td> 
                 <td><?php echo $rows['email'];?></td> 
                 <td><?php echo $rows['address'];?></td> 
             </tr> 

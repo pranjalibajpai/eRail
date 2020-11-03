@@ -14,6 +14,7 @@
 
     $errors = array('train_number' => '', 'date' => '', 'num_ac' => '', 'num_sleeper' => '', 'checks' => '');
     $train_number = $date = $num_ac = $num_sleeper = $checks = ''; 
+    $admin_name = $_SESSION['username'];
    
     if(isset($_POST['release'])){
         $train_number = $_POST['train_number'];
@@ -30,7 +31,7 @@
         
         // INSERT INTO TRAINS
         if(! array_filter($errors)){
-            $query1 = "INSERT INTO trains VALUES ('$train_number', '$date', '$num_ac', '$num_sleeper')";
+            $query1 = "INSERT INTO train VALUES ('$train_number', '$date', '$num_ac', '$num_sleeper', 0, 0, '$admin_name')";
             if ($conn->query($query1) === TRUE) {
                 header('Location: admin-page.php');
               }

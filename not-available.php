@@ -17,10 +17,9 @@
 <?php include "template/header-name.php" ?>
 
 <form style= "width: 60%;">
-<h3>WE REGRET THE INCONVENIENCE CAUSED</h3>
-<h4>It looks like the seats requested by you are not available</h4><br>
-<h4>THANKS FOR YOUR PATIENCE!</h4><br>
-<a href = "user.php" class="btn btn-outline-danger">Go Back</a>
+<h3><?php echo $_SESSION['username'] ?>, we regret the inconvenience caused.</h3>
+<h4>It looks like the seats requested by you are not available!</h4><br>
+<a href = "user.php" class="register">Go Back</a>
 </form>
 
 <?php include "template/footer.php" ?>
