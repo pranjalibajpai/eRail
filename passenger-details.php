@@ -2,7 +2,7 @@
     session_start();
     //To prevent user to access the page without login
     if(isset($_SESSION['username'])){
-        if($_SESSION['username'] == 'admin1'){
+        if($_SESSION['username'] == 'admin1' || $_SESSION['username'] == 'admin'){
           header('Location: admin-login.php');
         }
     }

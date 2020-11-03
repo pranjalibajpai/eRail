@@ -3,7 +3,7 @@
 
     //REDIRECTION
     if(isset($_SESSION['username'])){
-      if($_SESSION['username'] == 'admin1'){
+      if($_SESSION['username'] == 'admin1' || $_SESSION['username'] == 'admin'){
           header('Location: admin-page.php');
       }
       else{
