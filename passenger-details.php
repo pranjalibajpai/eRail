@@ -12,7 +12,7 @@
 
     include "config/connection.php";
     $num_passengers = $_SESSION['num_passengers'];
-    $errors = array('validate' => '');
+    $errors = array('validate' => '', 'seats' => '');
     $name = $age = $gender = [];
     for($i = 0; $i < $num_passengers; $i++){
       $name[$i] = $age[$i] = $gender[$i] = '';
@@ -27,21 +27,24 @@
         $errors['validate'] = 'Please fill details of all the passengers!';
       }
 
-      //IF NO ERRORS THEN CHECK SEATS ARE AVAILABLE IN DESIRED COACH
+      //IF NO ERRORS THEN CHECK WHETHER SEATS ARE AVAILABLE IN DESIRED COACH
       if(! array_filter($errors)){
         $_SESSION['name'] = $name;  
         $_SESSION['age'] = $age;
         $_SESSION['gender'] = $gender;
+        $train_number = $_SESSION['train_number'];
+        $date = $_SESSION['date'];
+        $coach = $_SESSION['coach'];
+        $num_passengers = $_SESSION['num_passengers'];
         
-        // TODO - CHECK SEATS ARE AVAILABLE***
         // IF AVAILABLE THEN REDIRECT GET TICKET ELSE FAILURE PAGE
-        // THEN REDIRECT TO USER PAGE.
-        $available = FALSE;
-        if($available){
-          header('Location: get-ticket.php');
+        $query1 = "CALL check_seats_availabilty('$train_number', '$date', '$coach', '$num_passengers')";
+        if ($conn->query($query1) === FALSE) {
+          $_SESSION['seats_error'] = $conn->error;
+          header('Location: not-available.php');
         }
         else{
-          header('Location: not-available.php');
+          header('Location: get-ticket.php');
         }
       }
     }

@@ -177,3 +177,41 @@ BEGIN
     END IF;
 END$$
 DELIMITER ;
+
+-- CHECK SEATS ARE AVAILABLE
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_seats_availabilty`(IN `tnum` INT, IN `tdate` DATE, IN `type` VARCHAR(50), IN `num_p` INT)
+    NO SQL
+BEGIN
+	DECLARE avail_a INT;
+    DECLARE avail_s INT;
+    DECLARE book_a INT;
+    DECLARE book_s INT;
+    DECLARE m1 VARCHAR(128) DEFAULT '';
+    DECLARE m2 VARCHAR(128) DEFAULT '';
+  
+    SELECT num_ac, num_sleeper, seats_b_ac, seats_b_sleeper
+    FROM train
+    WHERE t_number = tnum AND t_date = tdate
+    INTO avail_a, avail_s, book_a, book_s;
+    
+    IF type like 'ac' THEN
+    	IF avail_a = 0 THEN
+        	SET m1 = CONCAT('No AC Coach is available in Train- ', tnum, ' Dated- ', tdate);
+        ELSEIF avail_a*18 = book_a THEN
+        	SET m1 = CONCAT('AC Coaches of Train- ', tnum, ' Dated- ', tdate, ' are already booked!');
+        END IF;
+    ELSEIF type like 'sleeper' THEN
+    	IF avail_s = 0 THEN
+        	SET m1 = CONCAT('No Sleeper Coach is available in Train- ', tnum, ' Dated- ', tdate);
+        ELSEIF avail_s*24 = book_s THEN
+        	SET m1 = CONCAT('Sleeper Coaches of Train- ', tnum, ' Dated- ', tdate, ' are already booked!');
+        END IF;
+    END IF;
+    
+    IF m1 not like '' THEN
+		SIGNAL SQLSTATE '45000'
+    	SET MESSAGE_TEXT = m1;
+    END IF;
+END$$
+DELIMITER ;
