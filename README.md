@@ -49,6 +49,10 @@
 - check_valid_train(num INT(11), date Date)
     - Checks date selected by the user is not in the past
     - Checks Train Number & date has been released by admin
+- check_seats_availabilty(IN INT, IN DATE, IN VARCHAR(50), IN INT)
+- generate_pnr(IN VARCHAR(50), OUT VARCHAR(12), IN VARCHAR(50), IN INT, IN DATE)
+    -generates an unique PNR number
+    - inserts into the ticket table
 
 
 ## Triggers
