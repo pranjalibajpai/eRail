@@ -45,7 +45,7 @@
           header('Location: not-available.php');
         }
         else{
-          // GENERATE PNR NUMBER
+          // GENERATE PNR NUMBER & INSERT INTO TICKET
           $query1 = "CALL generate_pnr('".$_SESSION['username']."', @p1, '$coach', '$train_number', '$date'); SELECT @p1 AS pnr_no;";
           if($conn->multi_query($query1) == FALSE){
             echo $conn->error;
@@ -55,7 +55,10 @@
           $pnr_no = $result->fetch_object()->pnr_no;
           $_SESSION['pnr_no'] = $pnr_no;
 
-          //header('Location: get-ticket.php');
+          // ASSIGN BERTH NO & COACH NO & INSERT INTO PASSENGER
+          //TODO
+
+          header('Location: get-ticket.php');
         }
       }
     }
@@ -77,7 +80,7 @@
     </tr> 
   <?php for($i = 0; $i < $num_passengers; $i++){ ?>
    <tr>
-   <td>
+   <td> Passenger&nbsp
    <?php echo $i+1 ?>&nbsp&nbsp&nbsp
    </td>
    <td>
