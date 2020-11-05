@@ -36,6 +36,7 @@
         $date = $_SESSION['date'];
         $coach = $_SESSION['coach'];
         $num_passengers = $_SESSION['num_passengers'];
+        $name = $_SESSION['username'];
         
         // IF AVAILABLE THEN REDIRECT GET TICKET ELSE FAILURE PAGE
         $query1 = "CALL check_seats_availabilty('$train_number', '$date', '$coach', '$num_passengers')";
@@ -44,7 +45,17 @@
           header('Location: not-available.php');
         }
         else{
-          header('Location: get-ticket.php');
+          // GENERATE PNR NUMBER
+          $query1 = "CALL generate_pnr('".$_SESSION['username']."', @p1, '$coach', '$train_number', '$date'); SELECT @p1 AS pnr_no;";
+          if($conn->multi_query($query1) == FALSE){
+            echo $conn->error;
+          }
+          $conn->next_result();
+          $result = $conn->store_result();      
+          $pnr_no = $result->fetch_object()->pnr_no;
+          $_SESSION['pnr_no'] = $pnr_no;
+
+          //header('Location: get-ticket.php');
         }
       }
     }
