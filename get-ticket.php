@@ -67,10 +67,6 @@
             <td><h5> Booked By</h5></td>
             <td><h5><?php echo $_SESSION['username'] ?></h5></td>
         </tr>
-        <tr>
-            <td><h5> Booked On :</h5></td>
-            <td><h5><?php echo $_SESSION['num_passengers'] ?></h5></td>
-        </tr>
     </table><br><br>
     <h5> Passenger Details </h5>
     
