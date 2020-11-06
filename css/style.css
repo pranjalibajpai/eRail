@@ -32,14 +32,12 @@ label {
   border: none;
   outline: none;
 }
-
 .line-box {
   position: relative;
   width: 100%;
   height: 2px;
   background: #BCBCBC;
 }
-
 .line {
   position: absolute;
   width: 0%;
@@ -50,15 +48,12 @@ label {
   background: #8BC34A;
   transition: ease .6s;
 }
-
 .input:focus + .line-box .line {
   width: 100%;
 }
-
 .label-active {
   top: -3em;
 }
-
 button {
   display: inline-block;
   padding: 12px 24px;
@@ -71,25 +66,21 @@ button {
   cursor: pointer;
   transition: ease .3s;
 }
-
 button:hover {
   background: #8BC34A;
   color: #ffffff;
 }
-
 .register{
   background: rgb(220,220,220);
   font-weight: bold;
   color: rgb(120,120,120);
   padding: 12px 24px;
 }
-
 form a:hover{
   background: #8BC34A;
   color: #ffffff;
   text-decoration: none;
 }
-
 a:hover{
     font-weight: bold;
     color: #8BC34A;
