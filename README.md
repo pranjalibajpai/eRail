@@ -12,7 +12,7 @@
 
 ## Validations
 - Login (Admin & User)
-    - USername - Not Empty & Valid
+    - Username - Not Empty & Valid
     - Password - Not Empty & Valid
 - Register
     - Password - minimun 8 characters
