@@ -27,10 +27,10 @@
 ## ToDo
 - [x] Change type="text" to type="password" in admin-login.php, index.php, register.php to Hide Password
 - [ ] Add condition to all queries if query is not executed / throws an error
-- [ ] Hash algo is needed to store password in database
 - [x] After login if admin/users click login page it should redirect to index.php/admin-page.php 
 - [ ] Add number of available seats in view trains 
 - [ ] Make stored procedures for validation(not empty)
+- [ ] Update ERD
 
 ## Schema
 Tables | Attributes
