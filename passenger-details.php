@@ -56,10 +56,13 @@
           $_SESSION['pnr_no'] = $pnr_no;
 
           // ASSIGN BERTH NO & COACH NO & INSERT INTO PASSENGER
-          //TODO
+          // TODO
+          $query1 = "CALL assign_berth('$train_number', '$date', '$coach', '$num_passengers')";
+
 
           header('Location: get-ticket.php');
         }
+        // FIXME
       }
     }
 ?>
