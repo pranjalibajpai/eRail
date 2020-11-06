@@ -38,8 +38,8 @@ Tables | Attributes
 admin | username(PK), password
 user | username(PK), name, email, address, password
 train | t_number(PK), t_date(PK), num_ac, num_sleeper, seats_b_ac, seats_b_sleeper, released_by(FK - admin)
-ticket | pnr_no(PK), coach, booked_by(FK - user), t_number(FK - train), t_date(FK - train) 
-passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), coach_no(PK)
+ticket | pnr_no(PK), coach, booked_by(FK - user), booked_at, t_number(FK - train), t_date(FK - train) 
+passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type, coach_no(PK)
 
 ## Stored Procedures
 
@@ -54,7 +54,7 @@ passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), coach_no(P
 - **generate_pnr**(IN VARCHAR(50), OUT VARCHAR(12), IN VARCHAR(50), IN INT, IN DATE)
     - generates an unique PNR number
     - inserts into the ticket table
-
+- **assign_berth**(IN INT, IN  DATE, IN VARCHAR(50), IN VARCHAR(50), IN  INT, IN VARCHAR(50), IN  VARCHAR(12))
 
 ## Triggers
 - ### trains
