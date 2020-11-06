@@ -9,6 +9,13 @@
     else{
         header('Location: index.php');
     }
+    include "config/connection.php";
+    $query = "SELECT * FROM passenger WHERE pnr_no = '".$_SESSION['pnr_no']."' ";
+    if($conn->query($query) == FALSE){
+        echo $conn->error;
+    }
+    $result = $conn->query($query);
+    $conn->close(); 
 
 ?>
 
@@ -67,17 +74,34 @@
             <td><h5> Booked By</h5></td>
             <td><h5><?php echo $_SESSION['username'] ?></h5></td>
         </tr>
+        <!-- TODO BOoked by -->
     </table><br><br>
     <h5> Passenger Details </h5>
-    
-    
-    <!-- NAME OF PASSENGERS -->
-    <!-- BERTH NUMBER COACH NUMBER -->
-    <!-- CLASS OF ALL PASSENGERS -->
-    <!-- BOOKED BY -->
-    <!-- TIMESTAMP -->
+    <section>
+        <table> 
+            <tr> 
+                <th>Name</th> 
+                <th>Berth Number</th> 
+                <th>Berth Type</th> 
+                <th>Coach Number</th> 
+            </tr> 
+            <?php 
+                while($rows=$result->fetch_assoc()) 
+                { 
+             ?> 
+            <tr> 
+                <td><h5><?php echo $rows['name'];?></h5></td> 
+                <td><h5><?php echo $rows['berth_no'];?></h5></td> 
+                <td><h5><?php echo $rows['berth_type'];?></h5></td> 
+                <td><h5><?php echo $rows['coach_no'];?></h5></td> 
+            </tr> 
+            <?php 
+                } 
+             ?> 
+        </table> 
+    </section> 
     <br>
-    <h5> Have a Safe Journey! </h5>
+    <h5> Have a Safe Journey! </h5><br>
     <a href="user.php" class= "register">Home</a>
     <button onclick="window.print()">Print Ticket</button>
     
