@@ -36,7 +36,7 @@
         $date = $_SESSION['date'];
         $coach = $_SESSION['coach'];
         $num_passengers = $_SESSION['num_passengers'];
-        $name = $_SESSION['username'];
+        $u_name = $_SESSION['username'];
         
         // IF AVAILABLE THEN REDIRECT GET TICKET ELSE FAILURE PAGE
         $query1 = "CALL check_seats_availabilty('$train_number', '$date', '$coach', '$num_passengers')";
@@ -56,13 +56,16 @@
           $_SESSION['pnr_no'] = $pnr_no;
 
           // ASSIGN BERTH NO & COACH NO & INSERT INTO PASSENGER
-          // TODO
-          $query1 = "CALL assign_berth('$train_number', '$date', '$coach', '$num_passengers')";
-
+          for($i=0; $i<$num_passengers; $i++){
+            $query1 = "CALL assign_berth('$train_number', '$date', '$coach', '$name[$i]', '$age[$i]', '$gender[$i]', '$pnr_no')";
+            if ($conn->query($query1) === FALSE) {
+              echo $conn->error;
+            }
+          }
 
           header('Location: get-ticket.php');
+         
         }
-        // FIXME
       }
     }
 ?>
@@ -72,7 +75,7 @@
 
 <?php include "template/header-name.php" ?>
 
-<form method="post" action="passenger-details.php">
+<form method="post" action="passenger-details.php" style="width: 55%;">
   <h3> Enter Details Of Passengers</h3><br>
   <table>
     <tr> 
@@ -83,8 +86,7 @@
     </tr> 
   <?php for($i = 0; $i < $num_passengers; $i++){ ?>
    <tr>
-   <td> Passenger&nbsp
-   <?php echo $i+1 ?>&nbsp&nbsp&nbsp
+   <td> Passenger&nbsp<?php echo $i+1 ?>&nbsp&nbsp&nbsp
    </td>
    <td>
 	<input type="text" name="name[]" placeholder="Enter name" value = "<?php echo $name[$i] ?>">&nbsp&nbsp&nbsp
