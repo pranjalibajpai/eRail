@@ -179,6 +179,7 @@ END$$
 DELIMITER ;
 
 -- CHECK SEATS ARE AVAILABLE
+-- // TODO add check for num of passenger
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `check_seats_availabilty`(IN `tnum` INT, IN `tdate` DATE, IN `type` VARCHAR(50), IN `num_p` INT)
     NO SQL
@@ -216,7 +217,7 @@ BEGIN
 END$$
 DELIMITER ;
 
--- GENERATE PNR & INSERT INTO TICKET TABLE
+-- GENERATE PNR & INSERT INTO ticket TABLE
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `generate_pnr`(IN `u_name` VARCHAR(50), OUT `pnr_no` VARCHAR(12), IN `coach` VARCHAR(50), IN `t_number` INT, IN `t_date` DATE)
     NO SQL
@@ -230,5 +231,97 @@ BEGIN
     SET pnr_no = RPAD(CONCAT(p1, '-', p2, '-', p3), 12, '0');
  	INSERT INTO ticket
     VALUES(pnr_no, coach, u_name, t_number, t_date);
+END$$
+DELIMITER ;
+
+-- ASSIGN BERTH NO, COACH NO & BERTH TYPE + INSERT IN passenger + UPDATE IN train 
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `assign_berth`(IN `tnum` INT, IN `tdate` DATE, IN `tcoach` VARCHAR(50), IN `name` VARCHAR(50), IN `age` INT, IN `gender` VARCHAR(50), IN `pnr_no` VARCHAR(12))
+    NO SQL
+BEGIN
+	DECLARE bseats INT;
+    DECLARE tseats INT;
+    DECLARE berth_no INT;
+    DECLARE coach_no INT;
+    DECLARE berth_type VARCHAR(10);
+    DECLARE msg varchar(250) DEFAULT '';
+
+    IF tcoach like 'ac' THEN
+        SET tseats = 18;
+        SELECT seats_b_ac
+        FROM train 
+        WHERE t_number = tnum AND t_date = tdate
+        INTO bseats;
+    ELSE 
+        SET tseats = 24;
+        SELECT seats_b_sleeper
+        FROM train 
+        WHERE t_number = tnum AND t_date = tdate
+        INTO bseats;
+    END IF;
+	
+    -- berth_no & coach_no
+	-- // FIXME berth no not coming accurate
+    IF bseats = 0 THEN
+        SET coach_no = 1;
+        SET berth_no = 1;
+    ELSEIF bseats % tseats = 0 THEN
+        SET coach_no = bseats/tseats;
+        SET berth_no = tseats;
+    ELSE
+        SET coach_no = bseats/tseats + 1;
+        SET berth_no = bseats%tseats + 1;
+    END IF;
+	
+    -- berth_type
+    IF tcoach like 'ac' THEN
+    	CASE berth_no % 6
+            WHEN 0 THEN
+               SET berth_type = 'LB';
+            WHEN 1 THEN
+               SET berth_type = 'LB';
+            WHEN 2 THEN
+               SET berth_type = 'UB';
+            WHEN 3 THEN
+               SET berth_type = 'UB';
+            WHEN 4 THEN
+               SET berth_type = 'SL';
+            WHEN 5 THEN
+               SET berth_type = 'SU';
+		END CASE;
+    ELSE
+    	CASE berth_no % 8
+            WHEN 0 THEN
+               SET berth_type = 'LB';
+            WHEN 1 THEN
+               SET berth_type = 'MB';
+            WHEN 2 THEN
+               SET berth_type = 'UB';
+            WHEN 3 THEN
+               SET berth_type = 'LB';
+            WHEN 4 THEN
+               SET berth_type = 'MB';
+            WHEN 5 THEN
+               SET berth_type = 'UB';
+            WHEN 6 THEN
+               SET berth_type = 'SL';
+            WHEN 7 THEN
+               SET berth_type = 'SU';
+		END CASE;
+    END IF;
+    -- insert
+    INSERT INTO passenger 
+    VALUES(name, age, gender, pnr_no, berth_no, berth_type, coach_no);
+
+    -- update
+    IF tcoach like 'ac' THEN
+        UPDATE train
+        SET seats_b_ac = seats_b_ac + 1
+        WHERE t_number = tnum AND t_date = tdate;
+    ELSE
+        UPDATE train
+        SET seats_b_sleeper = seats_b_sleeper + 1
+        WHERE t_number = tnum AND t_date = tdate;
+    END IF;
 END$$
 DELIMITER ;
