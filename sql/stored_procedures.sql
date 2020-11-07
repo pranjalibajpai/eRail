@@ -179,7 +179,6 @@ END$$
 DELIMITER ;
 
 -- CHECK SEATS ARE AVAILABLE
--- // TODO add check for num of passenger
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `check_seats_availabilty`(IN `tnum` INT, IN `tdate` DATE, IN `type` VARCHAR(50), IN `num_p` INT)
     NO SQL
@@ -201,12 +200,16 @@ BEGIN
         	SET m1 = CONCAT('No AC Coach is available in Train- ', tnum, ' Dated- ', tdate);
         ELSEIF avail_a*18 = book_a THEN
         	SET m1 = CONCAT('AC Coaches of Train- ', tnum, ' Dated- ', tdate, ' are already booked!');
+        ELSEIF avail_a*18 < book_a + num_p THEN
+        	SET m1 = CONCAT('AC Coach of Train- ', tnum, ' Dated- ', tdate, ' has only ' , avail_a*18-book_a, ' seats available!'); 
         END IF;
     ELSEIF type like 'sleeper' THEN
     	IF avail_s = 0 THEN
         	SET m1 = CONCAT('No Sleeper Coach is available in Train- ', tnum, ' Dated- ', tdate);
         ELSEIF avail_s*24 = book_s THEN
         	SET m1 = CONCAT('Sleeper Coaches of Train- ', tnum, ' Dated- ', tdate, ' are already booked!');
+        ELSEIF avail_s*24 < book_s + num_p THEN
+        	SET m1 = CONCAT('Sleeper Coach of Train- ', tnum, ' Dated- ', tdate, ' has only ' , avail_s*18-book_s, ' seats available!'); 
         END IF;
     END IF;
     
@@ -245,7 +248,18 @@ BEGIN
     DECLARE coach_no INT;
     DECLARE berth_type VARCHAR(10);
     DECLARE msg varchar(250) DEFAULT '';
-
+    
+	-- update
+    IF tcoach like 'ac' THEN
+        UPDATE train
+        SET seats_b_ac = seats_b_ac + 1
+        WHERE t_number = tnum AND t_date = tdate;
+    ELSE
+        UPDATE train
+        SET seats_b_sleeper = seats_b_sleeper + 1
+        WHERE t_number = tnum AND t_date = tdate;
+    END IF;
+    
     IF tcoach like 'ac' THEN
         SET tseats = 18;
         SELECT seats_b_ac
@@ -259,69 +273,56 @@ BEGIN
         WHERE t_number = tnum AND t_date = tdate
         INTO bseats;
     END IF;
-	
+    
     -- berth_no & coach_no
-	-- // FIXME berth no not coming accurate
-    IF bseats = 0 THEN
-        SET coach_no = 1;
-        SET berth_no = 1;
-    ELSEIF bseats % tseats = 0 THEN
+    IF bseats % tseats = 0 THEN
         SET coach_no = bseats/tseats;
         SET berth_no = tseats;
     ELSE
-        SET coach_no = bseats/tseats + 1;
-        SET berth_no = bseats%tseats + 1;
+        SET coach_no = floor(bseats/tseats) + 1;
+        SET berth_no = bseats%tseats;
     END IF;
 	
     -- berth_type
     IF tcoach like 'ac' THEN
     	CASE berth_no % 6
-            WHEN 0 THEN
-               SET berth_type = 'LB';
             WHEN 1 THEN
                SET berth_type = 'LB';
             WHEN 2 THEN
-               SET berth_type = 'UB';
+               SET berth_type = 'LB';
             WHEN 3 THEN
                SET berth_type = 'UB';
             WHEN 4 THEN
-               SET berth_type = 'SL';
+               SET berth_type = 'UB';
             WHEN 5 THEN
+               SET berth_type = 'SL';
+            WHEN 0 THEN
                SET berth_type = 'SU';
 		END CASE;
     ELSE
     	CASE berth_no % 8
-            WHEN 0 THEN
-               SET berth_type = 'LB';
             WHEN 1 THEN
-               SET berth_type = 'MB';
-            WHEN 2 THEN
-               SET berth_type = 'UB';
-            WHEN 3 THEN
                SET berth_type = 'LB';
-            WHEN 4 THEN
+            WHEN 2 THEN
                SET berth_type = 'MB';
-            WHEN 5 THEN
+            WHEN 3 THEN
                SET berth_type = 'UB';
+            WHEN 4 THEN
+               SET berth_type = 'LB';
+            WHEN 5 THEN
+               SET berth_type = 'MB';
             WHEN 6 THEN
-               SET berth_type = 'SL';
+               SET berth_type = 'UB';
             WHEN 7 THEN
+               SET berth_type = 'SL';
+            WHEN 0 THEN
                SET berth_type = 'SU';
 		END CASE;
     END IF;
+   
     -- insert
     INSERT INTO passenger 
     VALUES(name, age, gender, pnr_no, berth_no, berth_type, coach_no);
-
-    -- update
-    IF tcoach like 'ac' THEN
-        UPDATE train
-        SET seats_b_ac = seats_b_ac + 1
-        WHERE t_number = tnum AND t_date = tdate;
-    ELSE
-        UPDATE train
-        SET seats_b_sleeper = seats_b_sleeper + 1
-        WHERE t_number = tnum AND t_date = tdate;
-    END IF;
+   
 END$$
 DELIMITER ;
