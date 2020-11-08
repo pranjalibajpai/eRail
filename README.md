@@ -63,6 +63,8 @@ passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type
         1. Checks if train is released atleast one month before and journey date and also atmost 4 months in advance.
         2. Checks whether same train is already released on the same date or not.
         3. Checks if number of coaches is not zero(atleast one coach is present - AC/Sleeper).
+    - **check_booked_seats** [BEFORE UPDATE TRIGGER]
+        1. Checks booked seats are not more than available seats in both AC & Sleeper Coach
  
  
 ## How to run locally 
