@@ -54,7 +54,7 @@ CREATE TRIGGER `before_train_release` BEFORE INSERT ON `train`
 END
 
 --Trigger before updating seats booked in train
-CREATE TRIGGER `check_seats` BEFORE UPDATE ON `train`
+CREATE TRIGGER `check_booked_seats` BEFORE UPDATE ON `train`
  FOR EACH ROW BEGIN
 	DECLARE msg varchar(255) DEFAULT '';
 	IF NEW.seats_b_ac > NEW.num_ac*18 THEN
