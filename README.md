@@ -33,6 +33,27 @@
 - [ ] Make stored procedures for validation(not empty)
 - [ ] Update ERD
 
+
+
+## Schema
+
+#### Entities
+- admin
+- train
+- user
+- passenger
+
+### Relations
+- releases (admin, train)
+- ticket (user, train, passenger)
+
+Tables | Attributes
+------------ | -------------
+admin | username(PK), password
+user | username(PK), name, email, address, password
+train | t_number(PK), t_date(PK), num_ac, num_sleeper, seats_b_ac, seats_b_sleeper, released_by(FK - admin)
+ticket | pnr_no(PK), coach, booked_by(FK - user), booked_at, t_number(FK - train), t_date(FK - train) 
+passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type, coach_no(PK)
 ## Schema
 Tables | Attributes
 ------------ | -------------
@@ -69,7 +90,9 @@ passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type
  
 ## How to run locally 
 - Install [XAMPP](https://www.apachefriends.org/index.html) on your system
-- Clone the repository in ```C:/Program Files/XAMPP/htdocs``` or Download the zip file & Copy in the ```htdocs``` folder
+- Clone the repository in ```C:/Program Files/XAMPP/htdocs``` 
+- ``` git clone https://github.com/pranjalibajpai/railway-reservation-system.git```
+- ``` cd railway-reservation-system ```
 - Start Apache & Mysql Servers from XAMPP Control Panel 
 - Visit http://localhost/phpmyadmin on your browser
 - Create a new database ```railwayDB```  and then click Import 
