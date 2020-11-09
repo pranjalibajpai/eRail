@@ -43,17 +43,10 @@
 - user
 - passenger
 
-### Relations
+#### Relations
 - releases (admin, train)
 - ticket (user, train, passenger)
 
-Tables | Attributes
------------- | -------------
-admin | username(PK), password
-user | username(PK), name, email, address, password
-train | t_number(PK), t_date(PK), num_ac, num_sleeper, seats_b_ac, seats_b_sleeper, released_by(FK - admin)
-ticket | pnr_no(PK), coach, booked_by(FK - user), booked_at, t_number(FK - train), t_date(FK - train) 
-passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type, coach_no(PK)
 ## Schema
 Tables | Attributes
 ------------ | -------------
