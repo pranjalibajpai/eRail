@@ -23,14 +23,14 @@
         $confirmp = $_POST['confirmp'];
 
         if(empty($fullname)){
-			$errors['fullname'] = 'Full Name is required';
-		} 
-		if(empty($username)){
-			$errors['username'] = 'Username is required';
+		$errors['fullname'] = 'Full Name is required';
+	} 
+	if(empty($username)){
+		$errors['username'] = 'Username is required';
     }
     else{
-			if(!preg_match('/^[a-zA-Z]+$/', $username)){
-				$errors['username'] .= 'Username must consist of letters only';
+	if(!preg_match('/^[a-zA-Z]+$/', $username)){
+		$errors['username'] .= 'Username must consist of letters only';
       }
 
       //CHECK USERNAME ALREADY EXISTED 
