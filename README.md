@@ -1,11 +1,24 @@
-#  🚉 railway-reservation-system	🎫 
+#  🚉 eRail - An online railway reservation system🎫 
 
-## Demo
+
+## Final Demo
 ![demo](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/demo.gif)
 
 ![demo](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/demo2.gif)
 
 ![demo2](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/demo3.gif)
+
+## How to run locally 
+- Install [XAMPP](https://www.apachefriends.org/index.html) on your system
+- Clone the repository in ```C:/Program Files/XAMPP/htdocs``` 
+- ``` git clone https://github.com/pranjalibajpai/railway-reservation-system.git```
+- ``` cd railway-reservation-system ```
+- Start Apache & Mysql Servers from XAMPP Control Panel 
+- Visit http://localhost/phpmyadmin on your browser
+- Create a new database ```railwayDB```  and then click Import 
+- Select ```sql/railwayDB.sql``` & database will be loaded
+- Open http://localhost/railway-reservation-system on your browser
+- Now you are all set to start!
 
 ## Things Done & Assumptions Made
 - Admins are added in the table - admins manually
@@ -24,16 +37,6 @@
     - Train Number - Not Empty & Number
     - Date - Not Empty & Between CURRENT_DATE + 1 Month & CURRENT_DATE + 4 Month
     - Number of Coaches - Positive & Total should be >= 1
-
-## ToDo
-- [x] Change type="text" to type="password" in admin-login.php, index.php, register.php to Hide Password
-- [ ] Add condition to all queries if query is not executed / throws an error
-- [x] After login if admin/users click login page it should redirect to index.php/admin-page.php 
-- [ ] Add number of available seats in view trains 
-- [ ] Make stored procedures for validation(not empty)
-- [ ] Update ERD
-
-
 
 ## Schema
 
@@ -80,21 +83,16 @@ passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type
     - **check_booked_seats** [BEFORE UPDATE TRIGGER]
         1. Checks booked seats are not more than available seats in both AC & Sleeper Coach
  
- 
-## How to run locally 
-- Install [XAMPP](https://www.apachefriends.org/index.html) on your system
-- Clone the repository in ```C:/Program Files/XAMPP/htdocs``` 
-- ``` git clone https://github.com/pranjalibajpai/railway-reservation-system.git```
-- ``` cd railway-reservation-system ```
-- Start Apache & Mysql Servers from XAMPP Control Panel 
-- Visit http://localhost/phpmyadmin on your browser
-- Create a new database ```railwayDB```  and then click Import 
-- Select ```sql/railwayDB.sql``` & database will be loaded
-- Open http://localhost/railway-reservation-system on your browser
-- Now you are all set to start!
-
 ## ER Diagram
 ![er diagram](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/ER%20Diagram.png)
+
+## ToDo
+- [x] Change type="text" to type="password" in admin-login.php, index.php, register.php to Hide Password
+- [ ] Add condition to all queries if query is not executed / throws an error
+- [x] After login if admin/users click login page it should redirect to index.php/admin-page.php 
+- [ ] Add number of available seats in view trains 
+- [ ] Make stored procedures for validation(not empty)
+- [ ] Update ERD
 
 ## Directory Structure
 
