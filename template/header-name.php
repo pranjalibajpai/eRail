@@ -24,6 +24,10 @@
       <li class="nav-item">
         <a class="nav-link" href="#"></a>
       </li>
+      
+    </ul>
+    </ul>
+    <ul class="pull-right nav navbar-nav">
       <li class="nav-item">
         <a class="nav-link" href="logout.php">Logout</a>
       </li>
