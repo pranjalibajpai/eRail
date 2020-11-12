@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
   <a class="navbar-brand brand" href="index.php">eRail</a>
  
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
