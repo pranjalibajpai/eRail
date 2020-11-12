@@ -1,9 +1,9 @@
 <?php
     session_start();
     //To prevent user to access the page without login
-    if(!isset($_SESSION['username'])){
-        header('Location: index.php');
-    }
+    // if(!isset($_SESSION['username'])){
+    //     header('Location: index.php');
+    // }
     include "config/connection.php";
 
     // FOR PAGINATION
