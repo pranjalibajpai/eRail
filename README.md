@@ -87,12 +87,15 @@ passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type
 ![er diagram](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/ER%20Diagram.png)
 
 ## ToDo
-- [x] Change type="text" to type="password" in admin-login.php, index.php, register.php to Hide Password
-- [ ] Add condition to all queries if query is not executed / throws an error
-- [x] After login if admin/users click login page it should redirect to index.php/admin-page.php 
-- [ ] Add number of available seats in view trains 
+- [ ] Test Schema by using 3NF Normailsation & correspondingly update ERD
+- [ ] Add User guide in **guide.php**
+- [ ] Update **view-user-bookings.php** to display bookings made by user
+- [ ] Update **view-bookings.php** to view booking of all users to admin
+- [ ] Make new file **check-ticket.php** where user can see the details of the ticket usign PNR no 
+- [ ] Add number of available seats in both the coaches in **view-released-trains.php** page
+- [ ] Add relevant navbar links in **header-name.php**
 - [ ] Make stored procedures for validation(not empty)
-- [ ] Update ERD
+- [ ] Add condition to all queries if query is not executed / throws an error 
 
 ## Directory Structure
 
