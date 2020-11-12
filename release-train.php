@@ -50,6 +50,7 @@
 
 <?php include "template/header-name.php" ?>
 
+<div style="margin-top:100px;">
 <form action="release-train.php" method="POST">
     <h3 class="heading">Release New Train</h3> <br>
     <label>
@@ -88,6 +89,7 @@
     <a href="admin-page.php" class="register">Back</a>
     <button type="submit" name="release" value="submit">Release</button>
 </form>
+</div>
 
 <?php include "template/footer.php" ?>
 

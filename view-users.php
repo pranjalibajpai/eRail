@@ -49,6 +49,7 @@
     } 
 </style> 
 
+<div style="margin-top:100px;">
 <form style="width: 80%;">
     <h3 class="heading">Registered Users</h3> <br>
     <section>
@@ -82,6 +83,7 @@
     <br><br><br>
     <a href="admin-page.php" class="register">Back</a>
 </form>
+</div>
 
 <?php include "template/footer.php" ?>
 

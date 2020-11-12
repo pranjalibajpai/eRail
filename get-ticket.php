@@ -45,6 +45,7 @@
         font-weight: lighter; 
     } 
 </style> 
+<div style="margin-top:100px;">
 <form style = "width: 60%;">
     <h3>Congratulations!</h3>
     <h4>Your ticket has been successfully booked</h2><br><br>
@@ -106,7 +107,7 @@
     <button onclick="window.print()">Print Ticket</button>
     
 </form>
-
+</div>
 
 <?php include "template/footer.php" ?>
 

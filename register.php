@@ -94,6 +94,7 @@
 
 <?php include "template/header.php" ?>
 
+<div style="margin-top:100px;">
 <form action="register.php" method="POST">
     <h3 class="heading">Register on eRail</h3>
   <label>
@@ -148,6 +149,7 @@
   <a href="index.php" class="register">Back</a>
   <button type="submit" name="register" value="submit">Register</button>
 </form>
+</div>
 
 <?php include "template/footer.php" ?>
 

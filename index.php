@@ -47,7 +47,7 @@
 <html lang="en">
 
 <?php include "template/header.php" ?>
-
+<div style="margin-top:100px;">
 <form action="index.php" method="POST">
     <h3 class="heading">Welcome to eRail</h3>
   <label>
@@ -70,7 +70,7 @@
   <button type="submit" name="signin" value="submit">Sign-In</button>
   <a href="register.php" class="register">Not A Member? Register</a>
 </form>
-
+</div>
 <?php include "template/footer.php" ?>
 
 </html>

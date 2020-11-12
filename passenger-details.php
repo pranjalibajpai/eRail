@@ -75,6 +75,7 @@
 
 <?php include "template/header-name.php" ?>
 
+<div style="margin-top:100px;">
 <form method="post" action="passenger-details.php" style="width: 55%;">
   <h3> Enter Details Of Passengers</h3><br>
   <table>
@@ -110,6 +111,7 @@
   <a href="book-ticket.php" class="register">Back</a>
   <button type="submit" name="check" value="submit">Check Availability</button>
  </form>
+</div>
 
 <?php include "template/footer.php" ?>
 

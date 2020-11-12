@@ -56,6 +56,7 @@
 
 <?php include "template/header-name.php" ?>
 
+<div style="margin-top:100px;">
 <form action="book-ticket.php" method="POST">
     <h3 class="heading">Book Ticket</h3> <br>
     <label>
@@ -92,6 +93,7 @@
     <a href="user.php" class="register">Back</a>
     <button type="submit" name="next" value="submit">Next</button>
 </form>
+</div>
 
 <?php include "template/footer.php" ?>
 

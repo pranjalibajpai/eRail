@@ -17,6 +17,7 @@
 
 <?php include "template/header-name.php" ?>
 
+<div style="margin-top:100px;">
 <form> 
     <h3 class="heading">Welcome <?php echo $welcome_name ?></h3> <br>
     <div class="line-box">
@@ -29,6 +30,7 @@
       <div class="line"></div>
     </div>
 </form>
+</div>
 
 <?php include "template/footer.php" ?>
 

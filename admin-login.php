@@ -51,6 +51,7 @@
 
 <?php include "template/header.php" ?>
 
+<div style="margin-top:100px;">
 <form action="admin-login.php" method="POST">
     <h3 class="heading">Welcome Admin</h3>
   <label>
@@ -73,7 +74,7 @@
   <button type="submit" name="signin" value="submit">Sign-In</button>
 
 </form>
-
+</div>
 <?php include "template/footer.php" ?>
 
 </html>
