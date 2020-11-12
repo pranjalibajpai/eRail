@@ -20,7 +20,7 @@
         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">PNR Status</a>
+        <a class="nav-link" href="#">Check Ticket Details</a>
       </li>
       </li>
       <li class="nav-item">
@@ -33,9 +33,14 @@
         <a class="nav-link" href="#">Contact Us</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="admin-login.php">Admin Login</a>
+        <a class="nav-link" href="#">Guide</a>
       </li>
       
+    </ul>
+    <ul class="pull-right nav navbar-nav">
+      <li class="nav-item">
+          <a class="nav-link" href="admin-login.php">Admin Login</a>
+      </li>
     </ul>
     
   </div>
