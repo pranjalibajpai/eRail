@@ -1,5 +1,16 @@
 #  🚉 eRail - An online railway reservation system🎫 
 
+## ToDo
+- [ ] Test Schema by using 3NF Normailsation & correspondingly update ERD
+- [ ] Add User guide in **guide.php**
+- [ ] Update **view-user-bookings.php** to display bookings made by user
+- [ ] Update **view-bookings.php** to view booking of all users to admin
+- [ ] Make new file **check-ticket.php** where user can see the details of the ticket usign PNR no 
+- [ ] Add number of available seats in both the coaches in **view-released-trains.php** page
+- [ ] Add relevant navbar links in **header-name.php**
+- [ ] Make stored procedures for validation(not empty)
+- [ ] Add condition to all queries if query is not executed / throws an error 
+
 
 ## Final Demo
 ![demo](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/demo.gif)
@@ -39,18 +50,6 @@
     - Number of Coaches - Positive & Total should be >= 1
 
 ## Schema
-
-#### Entities
-- admin
-- train
-- user
-- passenger
-
-#### Relations
-- releases (admin, train)
-- ticket (user, train, passenger)
-
-## Schema
 Tables | Attributes
 ------------ | -------------
 admin | username(PK), password
@@ -86,61 +85,4 @@ passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type
 ## ER Diagram
 ![er diagram](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/ER%20Diagram.png)
 
-## ToDo
-- [ ] Test Schema by using 3NF Normailsation & correspondingly update ERD
-- [ ] Add User guide in **guide.php**
-- [ ] Update **view-user-bookings.php** to display bookings made by user
-- [ ] Update **view-bookings.php** to view booking of all users to admin
-- [ ] Make new file **check-ticket.php** where user can see the details of the ticket usign PNR no 
-- [ ] Add number of available seats in both the coaches in **view-released-trains.php** page
-- [ ] Add relevant navbar links in **header-name.php**
-- [ ] Make stored procedures for validation(not empty)
-- [ ] Add condition to all queries if query is not executed / throws an error 
 
-## Directory Structure
-
-```
-railway-reservation-system
-
-├─ admin-login.php
-├─ admin-page.php
-├─ book-ticket.php
-├─ config
-│  └─ connection.php
-├─ css
-│  └─ style.css
-├─ get-ticket.php
-├─ index.php
-├─ logout.php
-├─ not-available.php
-├─ passenger-details.php
-├─ preview
-│  ├─ admin-login.png
-│  ├─ admin-page.png
-│  ├─ demo1.gif
-│  ├─ demo2.gif
-│  ├─ demo3.gif
-│  ├─ home.png
-│  ├─ register.png
-│  ├─ release-train.png
-│  ├─ validate-register.png
-│  ├─ validate-release.png
-│  └─ view-users.png
-├─ Project Specification.pdf
-├─ README.md
-├─ register.php
-├─ release-train.php
-├─ sql
-│  ├─ stored_procedures.sql
-│  └─ triggers.sql
-├─ template
-│  ├─ footer.php
-│  ├─ header-name.php
-│  ├─ header.php
-│  └─ pagination.php
-├─ user.php
-├─ view-bookings.php
-├─ view-released-trains.php
-├─ view-user-booking.php
-└─ view-users.php
-```
