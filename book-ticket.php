@@ -30,13 +30,15 @@
 			$errors['num_passengers'] = 'Enter Number Of Passengers';
         }
 
-        // CHECK VALIDITY OF TRAIN NUMBER & DATE
-        $train_number = $conn->real_escape_string($train_number);
-        $date = $conn->real_escape_string($date);
-        $query = "CALL check_valid_train('$train_number', '$date')";
-        if ($conn->query($query) === FALSE) {
-            $errors['validate'] = $conn->error;
-        }
+        // IF NO PREVIOUS ERRORS THEN CHECK VALIDITY OF TRAIN NUMBER & DATE
+	if(! array_filter($errors)){
+		$train_number = $conn->real_escape_string($train_number);
+		$date = $conn->real_escape_string($date);
+		$query = "CALL check_valid_train('$train_number', '$date')";
+		if ($conn->query($query) === FALSE) {
+		    $errors['validate'] = $conn->error;
+		}
+	}
 
         // IF NO ERRORS ENTER DETAILS OF PASSENGER
         if(! array_filter($errors)){

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
   <a class="navbar-brand brand" href="index.php">eRail</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
