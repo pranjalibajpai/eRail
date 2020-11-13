@@ -1,7 +1,7 @@
 #  🚉 eRail - An online railway reservation system🎫 
 
 ## ToDo
-- [ ] Test Schema by using 3NF Normailsation & correspondingly update ERD
+- [ ] Finalize schema & update ERD & corresponding changes in code
 - [ ] Add User guide in **guide.php**
 - [ ] Update **view-user-bookings.php** to display bookings made by user
 - [ ] Update **view-bookings.php** to view booking of all users to admin
