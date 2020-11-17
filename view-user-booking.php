@@ -22,7 +22,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include "template/header.php" ?>
+<?php include "template/header-name.php" ?>
 <style> 
     table { 
         width: 90%;
