@@ -326,3 +326,36 @@ BEGIN
    
 END$$
 DELIMITER ;
+
+
+-- CHECK VALID PNR
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_valid_pnr`(IN `pnr` VARCHAR(12))
+    NO SQL
+BEGIN
+	DECLARE msg VARCHAR(255) DEFAULT '';
+    DECLARE p VARCHAR(12);
+	DECLARE finished INT DEFAULT 0;
+	DEClARE ticket_info CURSOR
+    	FOR SELECT pnr_no FROM ticket;
+	DECLARE CONTINUE HANDLER 
+    	FOR NOT FOUND SET finished = 1;
+        
+    OPEN ticket_info;
+	get_info: LOOP
+		FETCH ticket_info INTO p;
+		IF finished = 1 THEN 
+			LEAVE get_info;
+		END IF;
+        IF p like pnr THEN
+        	SET msg = 'Found';
+        END IF;
+	END LOOP get_info;
+	CLOSE ticket_info;
+    
+    IF msg like '' THEN
+		SIGNAL SQLSTATE '45000'
+    	SET MESSAGE_TEXT = 'Please enter vaild PNR Number';
+    END IF;
+END$$
+DELIMITER ;
