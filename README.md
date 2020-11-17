@@ -76,7 +76,7 @@ passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type
 - ``` cd railway-reservation-system ```
 - Start Apache & Mysql Servers from XAMPP Control Panel 
 - Visit http://localhost/phpmyadmin on your browser
-- Create a new database ```railwayDB```  and then click Import 
+- Create a new database ```rDB```  and then click Import 
 - Select ```sql/railwayDB.sql``` & database will be loaded
 - Open http://localhost/railway-reservation-system on your browser
 - Now you are all set to start!
