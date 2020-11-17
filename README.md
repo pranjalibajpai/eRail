@@ -5,7 +5,7 @@
 - [ ] Add User guide in **guide.php**
 - [ ] Update **view-user-bookings.php** to display bookings made by user
 - [ ] Update **view-bookings.php** to view booking of all users to admin
-- [ ] Make new file **check-ticket.php** where user can see the details of the ticket usign PNR no 
+- [x] Make new file **find-ticket.php** where user can see the details of the ticket usign PNR no 
 - [ ] Add number of available seats in both the coaches in **view-released-trains.php** page
 - [ ] Add relevant navbar links in **header-name.php**
 - [ ] Make stored procedures for validation(not empty)
@@ -72,6 +72,7 @@ passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type
     - generates an unique PNR number
     - inserts into the ticket table
 - **assign_berth**(IN INT, IN  DATE, IN VARCHAR(50), IN VARCHAR(50), IN  INT, IN VARCHAR(50), IN  VARCHAR(12))
+- **check_valid_pnr**(IN  VARCHAR(12)
 
 ## Triggers
 - ### trains
