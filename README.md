@@ -83,6 +83,5 @@ passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type
         1. Checks booked seats are not more than available seats in both AC & Sleeper Coach
  
 ## ER Diagram
-![er diagram](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/ER%20Diagram.png)
 
 

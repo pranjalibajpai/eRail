@@ -29,17 +29,16 @@
 		$errors['username'] = 'Username is required';
     }
     else{
-	if(!preg_match('/^[a-zA-Z]+$/', $username)){
-		$errors['username'] .= 'Username must consist of letters only';
+      if(!preg_match('/^[a-zA-Z]+$/', $username)){
+        $errors['username'] .= 'Username must consist of letters only';
       }
-
       //CHECK USERNAME ALREADY EXISTED 
       $username = $conn->real_escape_string($username);
       $query2 = "CALL check_username_registered('$username');";
       if ($conn->query($query2) === FALSE) {
         $errors['username'] = $conn->error;
       }
-    }
+  }
     
     if(empty($email)){
 			$errors['email'] = 'An Email is required';
