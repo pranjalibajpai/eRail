@@ -2,14 +2,12 @@
 
 ## ToDo
 - [ ] Finalize schema & update ERD & corresponding changes in code
-- [ ] Add User guide in **guide.php**
-- [x] Update **view-user-bookings.php** to display bookings made by user
-- [x] Update **view-bookings.php** to view booking of all users to admin
-- [x] Make new file **find-ticket.php** where user can see the details of the ticket usign PNR no 
 - [ ] Add number of available seats in both the coaches in **view-released-trains.php** page
+- [ ] Add link for viewing past trains & fully booked trains**
 - [ ] Add relevant navbar links in **header-name.php**
-- [ ] Make stored procedures for validation(not empty)
-- [ ] Add condition to all queries if query is not executed / throws an error 
+- [ ] Check whether berth type is coming correct or not
+- [ ] Add triggers wherever necessary
+- [ ] Add User guide in **guide.php**
 
 ## Schema
 Tables | Attributes
