@@ -3,7 +3,7 @@
 ## ToDo
 - [ ] Finalize schema & update ERD & corresponding changes in code
 - [ ] Add User guide in **guide.php**
-- [ ] Update **view-user-bookings.php** to display bookings made by user
+- [x] Update **view-user-bookings.php** to display bookings made by user
 - [x] Update **view-bookings.php** to view booking of all users to admin
 - [x] Make new file **find-ticket.php** where user can see the details of the ticket usign PNR no 
 - [ ] Add number of available seats in both the coaches in **view-released-trains.php** page
@@ -55,6 +55,10 @@ passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type
 - # Admin Page
     - View All Bookings
     ![view-booking](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/admin-view-booking.png)
+
+- # User Page
+    - View User Bookings
+    ![view-booking](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/user-view-booking.png)
 
 
 ## ER Diagram
