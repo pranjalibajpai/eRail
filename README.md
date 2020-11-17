@@ -52,6 +52,11 @@ passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type
     - If Valid
     ![check-pnr](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/view-pnr-2.png)
 
+- # Admin Page
+    - View All Bookings
+    ![view-booking](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/admin-view-booking.png)
+    
+
 ## ER Diagram
 
 
