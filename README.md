@@ -2,12 +2,9 @@
 
 ## ToDo
 - [ ] Finalize schema & update ERD & corresponding changes in code
-- [ ] Add number of available seats in both the coaches in **view-released-trains.php** page
 - [ ] Add link for viewing past trains & fully booked trains**
-- [ ] Add relevant navbar links in **header-name.php**
 - [ ] Check whether berth type is coming correct or not
 - [ ] Add triggers wherever necessary
-- [ ] Add User guide in **guide.php**
 
 ## Schema
 Tables | Attributes
@@ -57,8 +54,13 @@ passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type
 - # User Page
     - View User Bookings
     ![view-booking](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/user-view-booking.png)
-
-
+- ### View Trains
+    ![view-train](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/view-train.png)
+- ### About
+    ![about](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/about.png)
+- ### Contact
+    ![contact](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/contact.png)
+    
 ## ER Diagram
 
 
