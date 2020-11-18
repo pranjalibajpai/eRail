@@ -90,7 +90,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
+    <title>Register</title>
+</head>
 <?php include "template/header.php" ?>
 
 <div style="margin-top:100px;">

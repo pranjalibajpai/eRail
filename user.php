@@ -14,7 +14,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
+    <title>User Page</title>
+</head>
 <?php include "template/header-name.php" ?>
 
 <div style="margin-top:100px;">
@@ -24,8 +26,8 @@
       <div class="line"></div>
     </div><br><br>
     <a href="book-ticket.php" class="register"> Book New Ticket </a><br><br><br>
-    <a href="view-released-trains.php" class="register">View Available Trains</a><br><br><br>
-    <a href="view-user-booking.php" class="register">View Your Previous Bookings</a><br><br><br>
+    <a href="view-released-trains.php" class="register">View Trains</a><br><br><br>
+    <a href="view-user-booking.php" class="register">View Past Bookings</a><br><br><br>
     <div class="line-box">
       <div class="line"></div>
     </div>

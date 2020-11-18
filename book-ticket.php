@@ -53,7 +53,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
+    <title>Book Ticket</title>
+</head>
 <?php include "template/header-name.php" ?>
 
 <div style="margin-top:100px;">

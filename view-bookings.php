@@ -21,7 +21,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
+    <title>Bookings</title>
+</head>
 <?php include "template/header.php" ?>
 <style> 
     table { 

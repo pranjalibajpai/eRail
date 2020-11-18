@@ -13,7 +13,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
+    <title>Not Available</title>
+</head>
 <?php include "template/header-name.php" ?>
 
 <div style="margin-top:100px;">

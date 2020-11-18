@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
+    <title>Contact Us</title>
+</head>
 <?php include "template/header.php" ?>
 
 <div style="margin-top:150px;">

@@ -23,7 +23,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
+    <title>Find Ticket</title>
+</head>
 <?php include "template/header.php" ?>
 
 <div style="margin-top:200px;">

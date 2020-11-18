@@ -25,7 +25,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
+    <title>Users</title>
+</head>
 <?php include "template/header-name.php" ?>
 <style> 
     table { 
