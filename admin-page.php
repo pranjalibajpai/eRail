@@ -26,7 +26,7 @@
       <div class="line"></div>
     </div><br><br>
     <a href="release-train.php" class="register"> Release New Train </a><br><br><br>
-    <a href="view-released-trains.php" class="register">View Trains</a><br><br><br>
+    <a href="view-trains.php" class="register">View Trains</a><br><br><br>
     <a href="view-users.php" class="register">View Registered Users</a><br><br><br>
     <a href="view-bookings.php" class="register">View All Bookings</a><br><br><br>
     <div class="line-box">
