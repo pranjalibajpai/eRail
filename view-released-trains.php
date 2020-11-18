@@ -1,26 +1,31 @@
 <?php
     session_start();
-    //To prevent user to access the page without login
-    // if(!isset($_SESSION['username'])){
-    //     header('Location: index.php');
-    // }
     include "config/connection.php";
 
     // FOR PAGINATION
-    $sql = "SELECT * FROM train ORDER BY t_date";
+    $sql = "SELECT * FROM train ORDER BY t_date DESC";
 
     include "template/pagination.php";  
     
-    $sql = "SELECT *FROM train ORDER BY t_date LIMIT " . $page_first_result . ',' . $results_per_page;  
+    $sql = "SELECT *FROM train ORDER BY t_date DESC LIMIT " . $page_first_result . ',' . $results_per_page;  
     $result = $conn->query($sql); 
     $conn->close();  
-
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include "template/header-name.php" ?>
+<head>
+    <title>Trains</title>
+</head>
+
+<?php 
+    if(isset($_SESSION['username']))
+        include "template/header-name.php";
+    else
+        include "template/header.php";
+?>
+
 <style> 
     table { 
         margin: 0 auto; 
@@ -45,7 +50,7 @@
 
 <div style="margin-top:100px;">
 <form style="width: 80%;">
-    <h3 class="heading">Released Trains</h3> <br>
+    <h3 class="heading">All Released Trains</h3> <br>
     <section>
         <table> 
             <tr> 
