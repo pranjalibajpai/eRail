@@ -55,7 +55,7 @@ passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type
     - View User Bookings
     ![view-booking](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/user-view-booking.png)
 - ### View Trains
-    ![view-train](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/view-train.png)
+    ![view-train](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/view-trains.png)
 - ### About
     ![about](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/about.png)
 - ### Contact
