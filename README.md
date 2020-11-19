@@ -3,25 +3,25 @@
 ## ToDo
 - Add new table train_status attributes train_num, date( FK train), seats booked ac, sleeper & remove these 2 from train. ADVANTAGE- write access will be given for train_status table & train table data will be secure.  
 - Triggers
-    - Insert
-        - admin, user: Checks are already made through stored procedures
-        - train: trigger already there
-        - ticket: **TODO**
-        - passenger: check same pnr, coach no & berth no shouldn't be in the table
     - Update
-        - admin, user, ticket, passenger: no updates
-        - train: train_num, date & no of coaches cannot be updated | only seats booked should be updated *** this will be incorporated if **train_status** table is added
+        - train_status: 
+            - When seats booked = available seats then remove the corresponding tuple from it
+            - Now, while booking if a train is released but is booked fully it will not be in train_status table    
+    - Insert
+        - passenger: check same pnr, coach no & berth no shouldn't be in the table
+    
     - Delete
-        - Prevent deletion of data of all the tables 
+        - Prevent deletion of data of all the tables except train_status 
             
- - [ ] Finalize schema & update ERD & corresponding changes in code
+- Finalize schema & update ERD & corresponding changes in code
 
 ## Schema
 Tables | Attributes
 ------------ | -------------
 admin | username(PK), password
 user | username(PK), name, email, address, password
-train | t_number(PK), t_date(PK), num_ac, num_sleeper, seats_b_ac, seats_b_sleeper, released_by(FK - admin)
+train | t_number(PK), t_date(PK), num_ac, num_sleeper, released_by(FK - admin)
+train_status | t_number(FK - train, PK), t_date(FK - train, PK), seats_b_ac, seats_b_sleeper
 ticket | pnr_no(PK), coach, booked_by(FK - user), booked_at, t_number(FK - train), t_date(FK - train) 
 passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type, coach_no(PK)
 
@@ -39,7 +39,7 @@ passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type
     - generates an unique PNR number
     - inserts into the ticket table
 - **assign_berth**(IN INT, IN  DATE, IN VARCHAR(50), IN VARCHAR(50), IN  INT, IN VARCHAR(50), IN  VARCHAR(12))
-- **check_valid_pnr**(IN  VARCHAR(12)
+- **check_valid_pnr**(IN  VARCHAR(12))
 
 ## Triggers
 - ### trains
