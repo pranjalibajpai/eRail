@@ -1,8 +1,20 @@
 #  🚉 eRail - An online railway reservation system🎫 
 
 ## ToDo
-- [ ] Finalize schema & update ERD & corresponding changes in code
-- [ ] Add triggers wherever necessary
+- Add new table train_status attributes train_num, date( FK train), seats booked ac, sleeper & remove these 2 from train. ADVANTAGE- write access will be given for train_status table & train table data will be secure.  
+- Triggers
+    - Insert
+        - admin, user: Checks are already made through stored procedures
+        - train: trigger already there
+        - ticket: **TODO**
+        - passenger: check same pnr, coach no & berth no shouldn't be in the table
+    - Update
+        - admin, user, ticket, passenger: no updates
+        - train: train_num, date & no of coaches cannot be updated | only seats booked should be updated *** this will be incorporated if **train_status** table is added
+    - Delete
+        - Prevent deletion of data of all the tables 
+            
+ - [ ] Finalize schema & update ERD & corresponding changes in code
 
 ## Schema
 Tables | Attributes
