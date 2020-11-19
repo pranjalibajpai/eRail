@@ -2,7 +2,6 @@
 
 ## ToDo
 - [ ] Finalize schema & update ERD & corresponding changes in code
-- [ ] Check whether berth type is coming correct or not
 - [ ] Add triggers wherever necessary
 
 ## Schema
