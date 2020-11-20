@@ -193,10 +193,15 @@ BEGIN
     DECLARE m1 VARCHAR(128) DEFAULT '';
     DECLARE m2 VARCHAR(128) DEFAULT '';
   
-    SELECT num_ac, num_sleeper, seats_b_ac, seats_b_sleeper
+    SELECT num_ac, num_sleeper
     FROM train
     WHERE t_number = tnum AND t_date = tdate
-    INTO avail_a, avail_s, book_a, book_s;
+    INTO avail_a, avail_s;
+    
+    SELECT seats_b_ac, seats_b_sleeper
+    FROM train_status
+    WHERE t_number = tnum AND t_date = tdate
+    INTO book_a, book_s;
     
     IF type like 'ac' THEN
     	IF avail_a = 0 THEN
@@ -254,11 +259,11 @@ BEGIN
     
 	-- update
     IF tcoach like 'ac' THEN
-        UPDATE train
+        UPDATE train_status
         SET seats_b_ac = seats_b_ac + 1
         WHERE t_number = tnum AND t_date = tdate;
     ELSE
-        UPDATE train
+        UPDATE train_status
         SET seats_b_sleeper = seats_b_sleeper + 1
         WHERE t_number = tnum AND t_date = tdate;
     END IF;
@@ -266,13 +271,13 @@ BEGIN
     IF tcoach like 'ac' THEN
         SET tseats = 18;
         SELECT seats_b_ac
-        FROM train 
+        FROM train_status 
         WHERE t_number = tnum AND t_date = tdate
         INTO bseats;
     ELSE 
         SET tseats = 24;
         SELECT seats_b_sleeper
-        FROM train 
+        FROM train_status
         WHERE t_number = tnum AND t_date = tdate
         INTO bseats;
     END IF;
