@@ -1,6 +1,7 @@
 #  🚉 eRail - An online railway reservation system🎫 
 
 ## ToDo
+- **add constraint that user can book ticket only 2 months in advance** (for releasing constraint is already there 1 month lower bound & 4 months upper bound
 - Add new table **train_status** attributes train_num, date( FK train), seats booked ac, sleeper & remove these 2 from train. ADVANTAGE- write access will be given for train_status table & train table data will be secure. 
 - From admin-page.php add link to **Check Train status** (input train no & date) display status of train [if not valid o/p message train not released or has been booked]
 - Update the link view trains to view all released train in which train details are visible (number, date & available coaches)
@@ -14,7 +15,9 @@
         - ticket: PNR cannot be updated
     - Insert
         - passenger: check same pnr, coach no & berth no shouldn't be in the table 
-           
+### Checks
+- redirection through url
+
 ## Functionality
 - ### General
     - Check Ticket
@@ -96,5 +99,15 @@ passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type
     - Train Number - Not Empty & Number
     - Date - Not Empty & Between CURRENT_DATE + 1 Month & CURRENT_DATE + 4 Month
     - Number of Coaches - Positive & Total should be >= 1
-
+## Tech Stack 
+- ### Frontend
+    - HTML
+    - CSS
+    - Bootstrap
+- ### Backend
+    - PHP
+- ### Database
+    - MySQL
+- ### Server
+    - Apache
 
