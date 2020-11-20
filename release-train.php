@@ -31,10 +31,14 @@
         
         // INSERT INTO TRAINS
         if(! array_filter($errors)){
-            $query1 = "INSERT INTO train VALUES ('$train_number', '$date', '$num_ac', '$num_sleeper', 0, 0, '$admin_name')";
+            $query1 = "INSERT INTO train VALUES ('$train_number', '$date', '$num_ac', '$num_sleeper', '$admin_name')";
             if ($conn->query($query1) === TRUE) {
                 header('Location: admin-page.php');
-              }
+                $query1 = "INSERT INTO train_status VALUES ('$train_number', '$date', 0, 0)";
+                if ($conn->query($query1) === FALSE) {
+                    echo $conn->error;
+                }
+            }
             else{
                 // ERROR OF before_release_train Trigger
                 $errors['checks'] = $conn->error;

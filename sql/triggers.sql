@@ -21,14 +21,22 @@ CREATE TRIGGER `before_train_release` BEFORE INSERT ON `train`
     	SET message = CONCAT('It is too late for a train to be released! You are ', DATEDIFF(lower_bound, NEW.t_date), ' days late.' );
     ELSEIF NEW.t_date > upper_bound THEN
     	SET message = CONCAT('It is too early for the train to be released! Try Again after ', DATEDIFF(NEW.t_date, upper_bound), ' Days');
-     END IF;
+    END IF;
     
-    
+    IF message != '' THEN
+        SIGNAL SQLSTATE '45000' 
+    	SET MESSAGE_TEXT = message;
+    END IF;
+
     IF NEW.num_ac < 0 OR NEW.num_sleeper < 0 THEN
     SET message = (message, CHAR(13), 'Enter valid number of coaches');
     ELSEIF NEW.num_ac + NEW.num_sleeper = 0 THEN
     SET message = CONCAT(message, CHAR(13), 'There is no coach in the train');
-    
+    END IF;
+
+    IF message != '' THEN
+        SIGNAL SQLSTATE '45000' 
+    	SET MESSAGE_TEXT = message;
     END IF;
     
 	OPEN train_info;
