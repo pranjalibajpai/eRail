@@ -32,7 +32,7 @@
     <form style="padding:50px;" action="view-ticket.php" method=POST>
     
         <label>
-            <p class="label-txt">ENTER YOUR UNIQUE 10-DIGIT PNR NUMBER</p>
+            <h3 class = "heading">ENTER YOUR PNR NUMBER</h3>
             <input type="text" class="input" name="pnr" maxlength=12 value="<?php echo htmlspecialchars($pnr) ?>"> 
             <div class="line-box">
             <div class="line"></div>
