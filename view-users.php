@@ -79,7 +79,7 @@
     </section> 
     <br><br>
     <?php for($page = 1; $page<= $number_of_page; $page++) {  ?>
-    <?php    echo '<a class="register" href = "view-released-trains.php?page=' . $page . '">' . $page . ' </a>'; ?>  
+    <?php    echo '<a class="register" href = "view-users.php?page=' . $page . '">' . $page . ' </a>'; ?>  
     <?php } ?> 
      
     <br><br><br>
