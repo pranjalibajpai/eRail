@@ -1,19 +1,36 @@
 #  🚉 eRail - An online railway reservation system🎫 
 
 ## ToDo
-- Add new table train_status attributes train_num, date( FK train), seats booked ac, sleeper & remove these 2 from train. ADVANTAGE- write access will be given for train_status table & train table data will be secure.  
+- Add new table **train_status** attributes train_num, date( FK train), seats booked ac, sleeper & remove these 2 from train. ADVANTAGE- write access will be given for train_status table & train table data will be secure. 
+- From admin-page.php add link to **Check Train status** (input train no & date) display status of train [if not valid o/p message train not released or has been booked]
+- Update the link view trains to view all released train in which train details are visible (number, date & available coaches)
+- Same for **user page** and **header**
+- In view-booking & view-user-booking add **number of passengers** column
+- no of passengers attribute should be added to ticket or not?
+
 - Triggers
     - Update
-        - train_status: 
-            - When seats booked = available seats then remove the corresponding tuple from it
-            - Now, while booking if a train is released but is booked fully it will not be in train_status table    
+        - train_status: When seats booked = available seats then remove the corresponding tuple from it Now, while booking if a train is released but is booked fully it will not be in train_status table   
+        - ticket: PNR cannot be updated
     - Insert
-        - passenger: check same pnr, coach no & berth no shouldn't be in the table
-    
-    - Delete
-        - Prevent deletion of data of all the tables except train_status 
-            
-- Finalize schema & update ERD & corresponding changes in code
+        - passenger: check same pnr, coach no & berth no shouldn't be in the table 
+           
+## Functionality
+- ### General
+    - Check Ticket
+    - View All Released Trains ``update pending``
+    - Check Train Status ``todo``
+- ### Admin
+    - Release New Train
+    - View All Released Trains ``update pending``
+    - Check Train Status ``todo``
+    - View All Users
+    - View All Bookings
+- ### User
+    - Book A Ticket
+    - View Released Trains ``update pending``
+    - Check Train Status ``todo``
+    - View Previous Bookings
 
 ## Schema
 Tables | Attributes
@@ -49,37 +66,6 @@ passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type
         3. Checks if number of coaches is not zero(atleast one coach is present - AC/Sleeper).
     - **check_booked_seats** [BEFORE UPDATE TRIGGER]
         1. Checks booked seats are not more than available seats in both AC & Sleeper Coach
- 
-## Preview
-- Check PNR
-    - If invalid
-     ![check-pnr](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/view-pnr-1.png)
-    - If Valid
-    ![check-pnr](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/view-pnr-2.png)
-
-- # Admin Page
-    - View All Bookings
-    ![view-booking](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/admin-view-booking.png)
-
-- # User Page
-    - View User Bookings
-    ![view-booking](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/user-view-booking.png)
-- ### View Trains
-    ![view-train](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/view-trains.png)
-- ### About
-    ![about](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/about.png)
-- ### Contact
-    ![contact](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/contact.png)
-    
-## ER Diagram
-
-
-## Final Demo
-![demo](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/demo.gif)
-
-![demo](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/demo2.gif)
-
-![demo2](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/demo3.gif)
 
 ## How to run locally 
 - Install [XAMPP](https://www.apachefriends.org/index.html) on your system
