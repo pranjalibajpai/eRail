@@ -20,7 +20,7 @@
         <a class="nav-link" href="index.php">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="check-ticket.php">Check Ticket</a>
+        <a class="nav-link" href="check-ticket.php">View Ticket</a>
       </li>
       </li>
       <li class="nav-item">

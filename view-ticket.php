@@ -24,12 +24,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Find Ticket</title>
+    <title>View Ticket</title>
 </head>
 <?php include "template/header.php" ?>
 
 <div style="margin-top:200px;">
-    <form style="padding:50px;" action="find-ticket.php" method=POST>
+    <form style="padding:50px;" action="view-ticket.php" method=POST>
     
         <label>
             <p class="label-txt">ENTER YOUR UNIQUE 10-DIGIT PNR NUMBER</p>
@@ -40,7 +40,7 @@
             <p class= "bg-danger text-white"><?php echo htmlspecialchars($errors['pnr'])?></p>
         </label>
         <a href="index.php" class="register">Back</a>
-        <button type="submit" name="submit" value="submit">Find Ticket</button>
+        <button type="submit" name="submit" value="submit">View Ticket</button>
     </form>
 </div>
 
