@@ -82,11 +82,16 @@ passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type
 - Open http://localhost/railway-reservation-system on your browser
 - Now you are all set to start!
 
-## Things Done & Assumptions Made
-- Admins are added in the table - admins manually
+## Assumptions Made
+- Admins are added in the table manually.
+- There are 2 admins
+    - username: admin, admin1
+    - password: same as username
+- Train can be released at least 1 month before and at most 4 months before the journey date
+- Ticket can be booked atmost 2 months in advance
 - If user/admin logs out & then access the page through URL then Access is Denied
 
-## Validations
+## Validations 
 - Login (Admin & User)
     - Username - Not Empty & Valid
     - Password - Not Empty & Valid
