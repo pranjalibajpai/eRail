@@ -137,7 +137,7 @@ DELIMITER ;
 
 -- CHECK VALIDITY OF TRAIN NUMBER & DATE
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `check_valid_train`(IN `num` INT(11), IN `date` DATE)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_train_details`(IN `num` INT(11), IN `date` DATE)
     NO SQL
 BEGIN
 	DECLARE n INT;
@@ -145,6 +145,7 @@ BEGIN
     DECLARE m1 VARCHAR(128) DEFAULT '';
     DECLARE m2 VARCHAR(128) DEFAULT '';
     DECLARE finished INT DEFAULT 0;
+    DECLARE upper_bound DATE DEFAULT DATE_ADD(CURRENT_DATE(), INTERVAL 2 MONTH);
 	DEClARE train_info CURSOR
     	FOR SELECT t_number, t_date FROM train;
 	DECLARE CONTINUE HANDLER 
@@ -152,6 +153,8 @@ BEGIN
     
     IF date < CURRENT_DATE() THEN
     	SET m1 = 'Please enter valid date';
+    ELSEIF date > upper_bound THEN
+    	SET m1 = 'Train can be booked atmost 2 months in advance';
     END IF;
     
     OPEN train_info;

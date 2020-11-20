@@ -34,7 +34,7 @@
 	if(! array_filter($errors)){
 		$train_number = $conn->real_escape_string($train_number);
 		$date = $conn->real_escape_string($date);
-		$query = "CALL check_valid_train('$train_number', '$date')";
+		$query = "CALL check_train_details('$train_number', '$date')";
 		if ($conn->query($query) === FALSE) {
 		    $errors['validate'] = $conn->error;
 		}
