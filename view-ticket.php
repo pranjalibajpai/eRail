@@ -33,7 +33,7 @@
     
         <label>
             <p class="label-txt">ENTER YOUR UNIQUE 10-DIGIT PNR NUMBER</p>
-            <input type="text" class="input" name="pnr" maxlength=12> 
+            <input type="text" class="input" name="pnr" maxlength=12 value="<?php echo htmlspecialchars($pnr) ?>"> 
             <div class="line-box">
             <div class="line"></div>
             </div>
