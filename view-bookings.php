@@ -24,7 +24,7 @@
 <head>
     <title>Bookings</title>
 </head>
-<?php include "template/header.php" ?>
+<?php include "template/header-name.php" ?>
 <style> 
     table { 
         width: 90%;
