@@ -49,17 +49,15 @@
 </style> 
 
 <div style="margin-top:100px;">
-<form style="width: 90%;">
+<form style="width: 70%;">
     <h3 class="heading">All Released Trains</h3> <br>
     <section>
         <table> 
             <tr> 
                 <th>Train Number</th> 
-                <th>Date Of Departure</th> 
+                <th>Journey Date</th> 
                 <th>Number Of AC Coaches</th> 
                 <th>Number Of Sleeper Coaches </th> 
-                <th>Seats Available: AC </th>
-                <th>Seats Available: Sleeper</th>
             </tr> 
             <?php 
                 while($rows=$result->fetch_assoc()) 
@@ -70,8 +68,6 @@
                 <td><?php echo $rows['t_date'];?></td> 
                 <td><?php echo $rows['num_ac'];?></td> 
                 <td><?php echo $rows['num_sleeper'];?></td> 
-                <td><?php echo $rows['num_ac']*18 - $rows['seats_b_ac'];?></td> 
-                <td><?php echo $rows['num_sleeper']*24 - $rows['seats_b_sleeper'];;?></td> 
             </tr> 
             <?php 
                 } 
