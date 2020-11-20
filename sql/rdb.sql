@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2020 at 10:30 AM
+-- Generation Time: Nov 20, 2020 at 07:59 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -36,11 +36,11 @@ BEGIN
     
 	-- update
     IF tcoach like 'ac' THEN
-        UPDATE train
+        UPDATE train_status
         SET seats_b_ac = seats_b_ac + 1
         WHERE t_number = tnum AND t_date = tdate;
     ELSE
-        UPDATE train
+        UPDATE train_status
         SET seats_b_sleeper = seats_b_sleeper + 1
         WHERE t_number = tnum AND t_date = tdate;
     END IF;
@@ -48,13 +48,13 @@ BEGIN
     IF tcoach like 'ac' THEN
         SET tseats = 18;
         SELECT seats_b_ac
-        FROM train 
+        FROM train_status 
         WHERE t_number = tnum AND t_date = tdate
         INTO bseats;
     ELSE 
         SET tseats = 24;
         SELECT seats_b_sleeper
-        FROM train 
+        FROM train_status
         WHERE t_number = tnum AND t_date = tdate
         INTO bseats;
     END IF;
@@ -181,10 +181,15 @@ BEGIN
     DECLARE m1 VARCHAR(128) DEFAULT '';
     DECLARE m2 VARCHAR(128) DEFAULT '';
   
-    SELECT num_ac, num_sleeper, seats_b_ac, seats_b_sleeper
+    SELECT num_ac, num_sleeper
     FROM train
     WHERE t_number = tnum AND t_date = tdate
-    INTO avail_a, avail_s, book_a, book_s;
+    INTO avail_a, avail_s;
+    
+    SELECT seats_b_ac, seats_b_sleeper
+    FROM train_status
+    WHERE t_number = tnum AND t_date = tdate
+    INTO book_a, book_s;
     
     IF type like 'ac' THEN
     	IF avail_a = 0 THEN
@@ -207,6 +212,48 @@ BEGIN
     IF m1 not like '' THEN
 		SIGNAL SQLSTATE '45000'
     	SET MESSAGE_TEXT = m1;
+    END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_train_details` (IN `num` INT(11), IN `date` DATE)  NO SQL
+BEGIN
+	DECLARE n INT;
+	DECLARE d DATE;
+    DECLARE m1 VARCHAR(128) DEFAULT '';
+    DECLARE m2 VARCHAR(128) DEFAULT '';
+    DECLARE finished INT DEFAULT 0;
+    DECLARE upper_bound DATE DEFAULT DATE_ADD(CURRENT_DATE(), INTERVAL 2 MONTH);
+	DEClARE train_info CURSOR
+    	FOR SELECT t_number, t_date FROM train;
+	DECLARE CONTINUE HANDLER 
+    	FOR NOT FOUND SET finished = 1;
+    
+    IF date < CURRENT_DATE() THEN
+    	SET m1 = 'Please enter valid date';
+    ELSEIF date > upper_bound THEN
+    	SET m1 = 'Train can be booked atmost 2 months in advance';
+    END IF;
+    
+    OPEN train_info;
+
+	get_info: LOOP
+		FETCH train_info INTO n, d;
+		IF finished = 1 THEN 
+			LEAVE get_info;
+		END IF;
+        IF num = n AND date = d THEN
+        	SET m2 = 'Found';
+        END IF;
+ 
+	END LOOP get_info;
+	CLOSE train_info;
+    
+    IF m1 not like '' THEN
+		SIGNAL SQLSTATE '45000'
+    	SET MESSAGE_TEXT = m1;
+    ELSEIF m2 like '' THEN
+    	SIGNAL SQLSTATE '45000'
+    	SET MESSAGE_TEXT = 'Train not yet released!';
     END IF;
 END$$
 
@@ -299,45 +346,6 @@ BEGIN
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `check_valid_train` (IN `num` INT(11), IN `date` DATE)  NO SQL
-BEGIN
-	DECLARE n INT;
-	DECLARE d DATE;
-    DECLARE m1 VARCHAR(128) DEFAULT '';
-    DECLARE m2 VARCHAR(128) DEFAULT '';
-    DECLARE finished INT DEFAULT 0;
-	DEClARE train_info CURSOR
-    	FOR SELECT t_number, t_date FROM train;
-	DECLARE CONTINUE HANDLER 
-    	FOR NOT FOUND SET finished = 1;
-    
-    IF date < CURRENT_DATE() THEN
-    	SET m1 = 'Please enter valid date';
-    END IF;
-    
-    OPEN train_info;
-
-	get_info: LOOP
-		FETCH train_info INTO n, d;
-		IF finished = 1 THEN 
-			LEAVE get_info;
-		END IF;
-        IF num = n AND date = d THEN
-        	SET m2 = 'Found';
-        END IF;
- 
-	END LOOP get_info;
-	CLOSE train_info;
-    
-    IF m1 not like '' THEN
-		SIGNAL SQLSTATE '45000'
-    	SET MESSAGE_TEXT = m1;
-    ELSEIF m2 like '' THEN
-    	SIGNAL SQLSTATE '45000'
-    	SET MESSAGE_TEXT = 'Train not yet released!';
-    END IF;
-END$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `generate_pnr` (IN `u_name` VARCHAR(50), OUT `pnr_no` VARCHAR(12), IN `coach` VARCHAR(50), IN `t_number` INT, IN `t_date` DATE)  NO SQL
 BEGIN
 	DECLARE p1 INT;
@@ -396,7 +404,10 @@ INSERT INTO `passenger` (`name`, `age`, `gender`, `pnr_no`, `berth_no`, `berth_t
 ('w', 5, 'Female', '648-792-8768', 19, 'UB', 1),
 ('riya', 6, 'Female', '648-883-6224', 1, 'LB', 2),
 ('g', 5, 'Male', '648-883-6224', 2, 'LB', 2),
-('d', 3, 'Female', '648-902-3840', 18, 'SU', 1);
+('d', 3, 'Female', '648-902-3840', 18, 'SU', 1),
+('a', 4, 'Female', '736-127-8144', 1, 'LB', 1),
+('b', 6, 'Female', '736-127-8144', 2, 'LB', 1),
+('e', 4, 'Female', '736-665-5968', 3, 'UB', 1);
 
 -- --------------------------------------------------------
 
@@ -420,7 +431,10 @@ CREATE TABLE `ticket` (
 INSERT INTO `ticket` (`pnr_no`, `coach`, `booked_by`, `booked_at`, `t_number`, `t_date`) VALUES
 ('648-792-8768', 'sleeper', 'pb ', '2020-11-12 18:42:52', 1, '2021-02-01'),
 ('648-883-6224', 'ac', 'pb ', '2020-11-12 18:42:07', 1, '2021-02-01'),
-('648-902-3840', 'ac', 'pb ', '2020-11-12 18:40:58', 1, '2021-02-01');
+('648-902-3840', 'ac', 'pb ', '2020-11-12 18:40:58', 1, '2021-02-01'),
+('736-127-8144', 'ac', 'pb', '2020-11-20 18:49:46', 2, '2021-01-01'),
+('736-393-4960', 'ac', 'pb', '2020-11-20 18:32:35', 2, '2021-01-01'),
+('736-665-5968', 'ac', 'pb', '2020-11-20 18:50:47', 2, '2021-01-01');
 
 -- --------------------------------------------------------
 
@@ -433,8 +447,6 @@ CREATE TABLE `train` (
   `t_date` date NOT NULL,
   `num_ac` int(11) NOT NULL,
   `num_sleeper` int(11) NOT NULL,
-  `seats_b_ac` int(11) NOT NULL,
-  `seats_b_sleeper` int(11) NOT NULL,
   `released_by` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -442,8 +454,10 @@ CREATE TABLE `train` (
 -- Dumping data for table `train`
 --
 
-INSERT INTO `train` (`t_number`, `t_date`, `num_ac`, `num_sleeper`, `seats_b_ac`, `seats_b_sleeper`, `released_by`) VALUES
-(1, '2021-02-01', 2, 1, 20, 24, 'admin');
+INSERT INTO `train` (`t_number`, `t_date`, `num_ac`, `num_sleeper`, `released_by`) VALUES
+(1, '2021-02-01', 2, 1, 'admin'),
+(2, '2021-01-01', 3, 2, 'admin'),
+(3, '2021-03-20', 3, 2, 'admin');
 
 --
 -- Triggers `train`
@@ -467,14 +481,22 @@ CREATE TRIGGER `before_train_release` BEFORE INSERT ON `train` FOR EACH ROW BEGI
     	SET message = CONCAT('It is too late for a train to be released! You are ', DATEDIFF(lower_bound, NEW.t_date), ' days late.' );
     ELSEIF NEW.t_date > upper_bound THEN
     	SET message = CONCAT('It is too early for the train to be released! Try Again after ', DATEDIFF(NEW.t_date, upper_bound), ' Days');
-     END IF;
+    END IF;
     
-    
+    IF message != '' THEN
+        SIGNAL SQLSTATE '45000' 
+    	SET MESSAGE_TEXT = message;
+    END IF;
+
     IF NEW.num_ac < 0 OR NEW.num_sleeper < 0 THEN
     SET message = (message, CHAR(13), 'Enter valid number of coaches');
     ELSEIF NEW.num_ac + NEW.num_sleeper = 0 THEN
     SET message = CONCAT(message, CHAR(13), 'There is no coach in the train');
-    
+    END IF;
+
+    IF message != '' THEN
+        SIGNAL SQLSTATE '45000' 
+    	SET MESSAGE_TEXT = message;
     END IF;
     
 	OPEN train_info;
@@ -500,23 +522,27 @@ CREATE TRIGGER `before_train_release` BEFORE INSERT ON `train` FOR EACH ROW BEGI
 END
 $$
 DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `check_booked_seats` BEFORE UPDATE ON `train` FOR EACH ROW BEGIN
-	DECLARE msg varchar(255) DEFAULT '';
-	IF NEW.seats_b_ac > NEW.num_ac*18 THEN
-    	SET msg = CONCAT(msg, ' Sufficient Seats are not available in AC Coach of Train no ', NEW.t_number, ' Dated ', NEW.t_date);
-    END IF;
-    IF NEW.seats_b_sleeper > NEW.num_sleeper*24 THEN
-    	SET msg = CONCAT(msg, ' Sufficient Seats are not available in Sleeper Coach of Train no ', NEW.t_number, ' Dated ', NEW.t_date);
-    END IF;
-    
-    IF msg != '' THEN
-    	SIGNAL SQLSTATE '45000' 
-    	SET MESSAGE_TEXT = msg;
-    END IF;
-END
-$$
-DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `train_status`
+--
+
+CREATE TABLE `train_status` (
+  `t_number` int(11) NOT NULL,
+  `t_date` date NOT NULL,
+  `seats_b_ac` int(11) NOT NULL,
+  `seats_b_sleeper` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `train_status`
+--
+
+INSERT INTO `train_status` (`t_number`, `t_date`, `seats_b_ac`, `seats_b_sleeper`) VALUES
+(2, '2021-01-01', 3, 0),
+(3, '2021-03-20', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -537,6 +563,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`username`, `name`, `email`, `address`, `password`) VALUES
+('grfr', 'anu', 'dksm@gmail.com', 'bbfvsd', 'abcdefgh'),
 ('pb', 'Pranjali', 'pb@gmail.com', 'Awas Vikas Colony', 'pranjali');
 
 --
@@ -553,7 +580,8 @@ ALTER TABLE `admin`
 -- Indexes for table `passenger`
 --
 ALTER TABLE `passenger`
-  ADD PRIMARY KEY (`pnr_no`,`berth_no`,`coach_no`);
+  ADD PRIMARY KEY (`pnr_no`,`berth_no`,`coach_no`),
+  ADD KEY `pnr_no` (`pnr_no`);
 
 --
 -- Indexes for table `ticket`
@@ -569,6 +597,14 @@ ALTER TABLE `ticket`
 ALTER TABLE `train`
   ADD PRIMARY KEY (`t_number`,`t_date`),
   ADD KEY `released_by` (`released_by`);
+
+--
+-- Indexes for table `train_status`
+--
+ALTER TABLE `train_status`
+  ADD PRIMARY KEY (`t_number`,`t_date`),
+  ADD KEY `t_number` (`t_number`),
+  ADD KEY `t_date` (`t_date`);
 
 --
 -- Indexes for table `user`
@@ -598,6 +634,12 @@ ALTER TABLE `ticket`
 --
 ALTER TABLE `train`
   ADD CONSTRAINT `train_ibfk_1` FOREIGN KEY (`released_by`) REFERENCES `admin` (`username`);
+
+--
+-- Constraints for table `train_status`
+--
+ALTER TABLE `train_status`
+  ADD CONSTRAINT `train_status_ibfk_1` FOREIGN KEY (`t_number`,`t_date`) REFERENCES `train` (`t_number`, `t_date`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
