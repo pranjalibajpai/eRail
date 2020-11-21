@@ -10,40 +10,42 @@
         $number = $conn->real_escape_string($number);
         $date = $conn->real_escape_string($date);
         
-        if(empty($train_number)){
-			$errors['train_number'] = 'Train Number is required';
+        if(empty($number)){
+			$errors['number'] = 'Train Number is required';
         }
         if(empty($date)){
             $errors['date'] = 'Date is required';
-        }   
-        //CHECK VALID TRAIN
-        $query1 = "SELECT * FROM train_status WHERE t_number = '$number' AND t_date = '$date'";
-        $result = $conn->query($query1);
-        $query2 = "SELECT * FROM train WHERE t_number = '$number' AND t_date = '$date'";
-        $result2 = $conn->query($query2);
-        //IF TUPLE FOUND IN TABLE PRINT STATUS
-        if($result->num_rows > 0){
-            $row = $result->fetch_object();
-            $row1 = $result2->fetch_object();
-            if($row1->num_ac == 0){
-                $avail_ac = 0;
+        }  
+        if(! array_filter($errors)){ 
+            //CHECK VALID TRAIN
+            $query1 = "SELECT * FROM train_status WHERE t_number = '$number' AND t_date = '$date'";
+            $result = $conn->query($query1);
+            $query2 = "SELECT * FROM train WHERE t_number = '$number' AND t_date = '$date'";
+            $result2 = $conn->query($query2);
+            //IF TUPLE FOUND IN TABLE PRINT STATUS
+            if($result->num_rows > 0){
+                $row = $result->fetch_object();
+                $row1 = $result2->fetch_object();
+                if($row1->num_ac == 0){
+                    $avail_ac = 0;
+                }
+                else{
+                    $avail_ac = $row1->num_ac*18 - $row->seats_b_ac;
+                }
+                if($row1->num_sleeper == 0){
+                    $avail_sleeper = 0;
+                }
+                else{
+                    $avail_sleeper = $row1->num_sleeper*24 - $row->seats_b_sleeper;
+                }
+            }
+            else if($result2->num_rows > 0){
+                    $errors['final'] = 'Train has been booked';
             }
             else{
-                $avail_ac = $row1->num_ac*18 - $row->seats_b_ac;
+                $errors['final'] = 'Train has not been released'; 
             }
-            if($row1->num_sleeper == 0){
-                $avail_sleeper = 0;
-            }
-            else{
-                $avail_sleeper = $row1->num_sleeper*24 - $row->seats_b_sleeper;
-            }
-        }
-        else if($result2->num_rows > 0){
-                $errors['final'] = 'Train has been booked';
-        }
-        else{
-            $errors['final'] = 'Train has not been released'; 
-        }
+        }    
     }
 ?>
 
