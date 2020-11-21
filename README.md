@@ -2,14 +2,12 @@
 
 ## ToDo
 - From admin-page.php add link to **Check Train status** (input train no & date) display status of train [if not valid o/p message train not released or has been booked]
-- Update the link view trains to view all released train in which train details are visible (number, date & available coaches)
 - Same for **user page** and **header**
 - In view-booking & view-user-booking add **number of passengers** column
 
 - Triggers
     - Update
-        - train_status: When seats booked = available seats then remove the corresponding tuple from it Now, while booking if a train is released but is booked fully it will not be in train_status table  
-        seats booked not greater than avialble 
+        - train_status: When seats booked = available seats then remove the corresponding tuple from it Now, while booking if a train is released but is booked fully it will not be in train_status table  & also seats booked not greater than avialble 
         - ticket: PNR cannot be updated
     - Insert
         - passenger: check same pnr, coach no & berth no shouldn't be in the table 
