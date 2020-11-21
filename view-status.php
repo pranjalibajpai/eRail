@@ -41,6 +41,7 @@
             }
             else if($result2->num_rows > 0){
                     $errors['final'] = 'Train has been booked';
+                    $avail_ac = $avail_sleeper = 0;
             }
             else{
                 $errors['final'] = 'Train has not been released'; 
@@ -100,7 +101,7 @@
         <a href="index.php" class="register">Back</a>
         <button type="submit" name="submit" value="submit">Check</button>
         <br><br>
-        <h5>Seats Status</h5>
+        <h5>Seats Available</h5>
         <table>
             <tr>
                 <td><h5> AC Coach </h5></td>
