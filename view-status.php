@@ -80,7 +80,7 @@
 </style> 
 <div style="margin-top:200px;">
     <form style="padding:50px;" action="view-status.php" method=POST>
-        <h3 class = "heading">Check Train Status</h3>
+        <h3 class = "heading">Check Seats Available For Booking</h3>
             <label>
                 <p class="label-txt">TRAIN NUMBER</p>
                 <input type="number" class="input" min=0 name="number" value="<?php echo htmlspecialchars($number) ?>">
@@ -101,7 +101,7 @@
         <a href="index.php" class="register">Back</a>
         <button type="submit" name="submit" value="submit">Check</button>
         <br><br>
-        <h5>Seats Available</h5>
+        
         <table>
             <tr>
                 <td><h5> AC Coach </h5></td>
