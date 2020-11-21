@@ -104,11 +104,11 @@
         
         <table>
             <tr>
-                <td><h5> AC Coach </h5></td>
+                <td><h5> Seats In AC Coach </h5></td>
                 <td><h5><?php echo $avail_ac ?></h5></td>
             </tr>
             <tr>
-                <td><h5> Sleeper Coach</h5></td>
+                <td><h5> Seats In Sleeper Coach</h5></td>
                 <td><h5><?php echo $avail_sleeper?></h5></td>
             </tr>
         </table>
