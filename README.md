@@ -3,27 +3,24 @@
 ## ToDo
 - Triggers
     - Update
-        - train_status: When seats booked = available seats then remove the corresponding tuple from it Now, while booking if a train is released but is booked fully it will not be in train_status table  & also seats booked not greater than avialble 
+        - train_status:seats booked not greater than avialble 
         - ticket: PNR cannot be updated
-    - Insert
-        - passenger: check same pnr, coach no & berth no shouldn't be in the table 
-### Checks
-- redirection through url
+- Check trai status logic pdate
 
 ## Functionality
 - ### General
     - Check Ticket
-    - View All Released Trains ``update pending``
+    - View All Released Trains 
     - Check Train Status ``todo``
 - ### Admin
     - Release New Train
-    - View All Released Trains ``update pending``
+    - View All Released Trains 
     - Check Train Status ``todo``
     - View All Users
     - View All Bookings
 - ### User
     - Book A Ticket
-    - View Released Trains ``update pending``
+    - View Released Trains 
     - Check Train Status ``todo``
     - View Previous Bookings
 
