@@ -26,7 +26,13 @@
 <head>
     <title>View Ticket</title>
 </head>
-<?php include "template/header.php" ?>
+<?php 
+    if(isset($_SESSION['username']))
+        include "template/header-name.php";
+    else
+        include "template/header.php";
+?>
+
 
 <div style="margin-top:200px;">
     <form style="padding:50px;" action="view-ticket.php" method=POST>
