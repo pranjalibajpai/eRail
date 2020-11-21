@@ -217,7 +217,7 @@ BEGIN
         ELSEIF avail_s*24 = book_s THEN
         	SET m1 = CONCAT('Sleeper Coaches of Train- ', tnum, ' Dated- ', tdate, ' are already booked!');
         ELSEIF avail_s*24 < book_s + num_p THEN
-        	SET m1 = CONCAT('Sleeper Coach of Train- ', tnum, ' Dated- ', tdate, ' has only ' , avail_s*18-book_s, ' seats available!'); 
+        	SET m1 = CONCAT('Sleeper Coach of Train- ', tnum, ' Dated- ', tdate, ' has only ' , avail_s*24-book_s, ' seats available!'); 
         END IF;
     END IF;
     
