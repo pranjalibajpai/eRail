@@ -95,3 +95,46 @@ CREATE TRIGGER `check_ticket_update` BEFORE UPDATE ON `ticket`
     	SET MESSAGE_TEXT = 'Ticket details cannot be updated';
     END IF;
 END
+
+-- Trigger To Prevent Booking Of Same berth for same train coach same date 
+CREATE TRIGGER `before_berth_assign` BEFORE INSERT ON `passenger`
+ FOR EACH ROW BEGIN
+    DECLARE msg VARCHAR(255) DEFAULT '';
+    DECLARE finished INT DEFAULT 0;
+    DECLARE tnum INT;
+    DECLARE tdate DATE;
+    DECLARE c1 VARCHAR(50);
+    DECLARE bno INT;
+    DECLARE cno INT;
+    DECLARE t_no INT;
+    DECLARE t_d INT;
+    DECLARE c2 VARCHAR(50);
+	DECLARE p_info CURSOR FOR
+        SELECT t_number, t_date, berth_no, coach_no, coach
+        FROM passenger, ticket
+        WHERE passenger.pnr_no = ticket.pnr_no;
+	DECLARE CONTINUE HANDLER 
+    	FOR NOT FOUND SET finished = 1;
+        
+    SELECT t_number, t_date, coach 
+    FROM ticket
+    WHERE pnr_no = NEW.pnr_no
+    INTO t_no, t_d, c1;
+    
+    OPEN p_info;
+	get_info: LOOP
+		FETCH p_info INTO tnum, tdate, bno, cno, c2;
+		IF finished = 1 THEN 
+			LEAVE get_info;
+		END IF;
+        IF tnum = t_no AND tdate = t_d AND bno = NEW.berth_no AND cno = NEW.coach_no AND c1 = c2 THEN
+        	SET msg = 'Found';
+        END IF;
+	END LOOP get_info;
+	CLOSE p_info;
+    
+    IF msg not like '' THEN
+		SIGNAL SQLSTATE '45000'
+    	SET MESSAGE_TEXT = 'This seat has been booked already';
+    END IF;
+END
