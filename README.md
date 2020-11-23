@@ -5,23 +5,23 @@
     - Update
         - train_status:seats booked not greater than avialble 
         - ticket: PNR cannot be updated
-- Check trai status logic pdate
+- Check train status logic update
 
 ## Functionality
 - ### General
     - Check Ticket
     - View All Released Trains 
-    - Check Train Status ``todo``
+    - Check Train Status 
 - ### Admin
     - Release New Train
     - View All Released Trains 
-    - Check Train Status ``todo``
+    - Check Train Status 
     - View All Users
     - View All Bookings
 - ### User
     - Book A Ticket
     - View Released Trains 
-    - Check Train Status ``todo``
+    - Check Train Status 
     - View Previous Bookings
 
 ## Schema
