@@ -1,7 +1,6 @@
--- CHECK EMAIL ID ALREADY REGISTERED OR NOT
+-- I
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `check_email_registered`(IN `in_email` VARCHAR(50))
-    NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_email_registered` (IN `in_email` VARCHAR(50))  NO SQL
 BEGIN
 	DECLARE email_id VARCHAR(50);
     DECLARE message VARCHAR(128) DEFAULT '';
@@ -30,11 +29,11 @@ BEGIN
     	SET MESSAGE_TEXT = message;
     END IF;
 END$$
-DELIMITER ;
--- CHECK USERNAME ALREADY TAKEN OR NOT
+DELIMITER;
+
+-- II
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `check_username_registered`(IN `in_username` VARCHAR(10))
-    NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_username_registered` (IN `in_username` VARCHAR(10))  NO SQL
 BEGIN
 	DECLARE name VARCHAR(10);
     DECLARE message VARCHAR(128) DEFAULT '';
@@ -63,12 +62,11 @@ BEGIN
     	SET MESSAGE_TEXT = message;
     END IF;
 END$$
-DELIMITER ;
+DELIMITER;
 
--- CHECK ADMIN CREDENTIALS DURING LOGIN
+-- III
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `check_admin_credentials`(IN `n` VARCHAR(10), IN `p` VARCHAR(50))
-    NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_admin_credentials` (IN `n` VARCHAR(10), IN `p` VARCHAR(50))  NO SQL
 BEGIN
 	DECLARE name VARCHAR(10);
 	DECLARE pass VARCHAR(50);
@@ -98,12 +96,11 @@ BEGIN
     	SET MESSAGE_TEXT = 'Invalid Username or Password';
     END IF;
 END$$
-DELIMITER ;
+DELIMITER;
 
---CHECK USER CREDENTIALS DURING LOGIN
+-- IV
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `check_user_credentials`(IN `n` VARCHAR(10), IN `p` VARCHAR(50))
-    NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_user_credentials` (IN `n` VARCHAR(10), IN `p` VARCHAR(50))  NO SQL
 BEGIN
 	DECLARE name VARCHAR(10);
 	DECLARE pass VARCHAR(50);
@@ -133,12 +130,11 @@ BEGIN
     	SET MESSAGE_TEXT = 'Invalid Username or Password';
     END IF;
 END$$
-DELIMITER ;
+DELIMITER;
 
--- CHECK VALIDITY OF TRAIN NUMBER & DATE
+-- V
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `check_train_details`(IN `num` INT(11), IN `date` DATE)
-    NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_train_details` (IN `num` INT(11), IN `date` DATE)  NO SQL
 BEGIN
 	DECLARE n INT;
 	DECLARE d DATE;
@@ -179,12 +175,11 @@ BEGIN
     	SET MESSAGE_TEXT = 'Train not yet released!';
     END IF;
 END$$
-DELIMITER ;
+DELIMITER;
 
--- CHECK SEATS ARE AVAILABLE
+-- VI
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `check_seats_availabilty`(IN `tnum` INT, IN `tdate` DATE, IN `type` VARCHAR(50), IN `num_p` INT)
-    NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_seats_availabilty` (IN `tnum` INT, IN `tdate` DATE, IN `type` VARCHAR(50), IN `num_p` INT)  NO SQL
 BEGIN
 	DECLARE avail_a INT;
     DECLARE avail_s INT;
@@ -226,12 +221,11 @@ BEGIN
     	SET MESSAGE_TEXT = m1;
     END IF;
 END$$
-DELIMITER ;
+DELIMITER;
 
--- GENERATE PNR & INSERT INTO ticket TABLE
+-- VII
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `generate_pnr`(IN `u_name` VARCHAR(50), OUT `pnr_no` VARCHAR(12), IN `coach` VARCHAR(50), IN `t_number` INT, IN `t_date` DATE)
-    NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `generate_pnr` (IN `u_name` VARCHAR(50), OUT `pnr_no` VARCHAR(12), IN `coach` VARCHAR(50), IN `t_number` INT, IN `t_date` DATE)  NO SQL
 BEGIN
 	DECLARE p1 INT;
     DECLARE p2 INT;
@@ -241,14 +235,13 @@ BEGIN
     SET p3 = LPAD(cast(conv(substring(md5(CURRENT_TIMESTAMP()), 1, 16), 16, 10)%10000 as unsigned integer), 4, '0');
     SET pnr_no = RPAD(CONCAT(p1, '-', p2, '-', p3), 12, '0');
  	INSERT INTO ticket
-    VALUES(pnr_no, coach, u_name, t_number, t_date);
+    VALUES(pnr_no, coach, u_name, CURRENT_TIMESTAMP(), t_number, t_date);
 END$$
-DELIMITER ;
 
--- ASSIGN BERTH NO, COACH NO & BERTH TYPE + INSERT IN passenger + UPDATE IN train 
+
+--VIII
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `assign_berth`(IN `tnum` INT, IN `tdate` DATE, IN `tcoach` VARCHAR(50), IN `name` VARCHAR(50), IN `age` INT, IN `gender` VARCHAR(50), IN `pnr_no` VARCHAR(12))
-    NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `assign_berth` (IN `tnum` INT, IN `tdate` DATE, IN `tcoach` VARCHAR(50), IN `name` VARCHAR(50), IN `age` INT, IN `gender` VARCHAR(50), IN `pnr_no` VARCHAR(12))  NO SQL
 BEGIN
 	DECLARE bseats INT;
     DECLARE tseats INT;
@@ -257,7 +250,7 @@ BEGIN
     DECLARE berth_type VARCHAR(10);
     DECLARE msg varchar(250) DEFAULT '';
     
-	-- update
+     -- update
     IF tcoach like 'ac' THEN
         UPDATE train_status
         SET seats_b_ac = seats_b_ac + 1
@@ -267,7 +260,6 @@ BEGIN
         SET seats_b_sleeper = seats_b_sleeper + 1
         WHERE t_number = tnum AND t_date = tdate;
     END IF;
-    
     IF tcoach like 'ac' THEN
         SET tseats = 18;
         SELECT seats_b_ac
@@ -331,15 +323,13 @@ BEGIN
     -- insert
     INSERT INTO passenger 
     VALUES(name, age, gender, pnr_no, berth_no, berth_type, coach_no);
-   
+    
 END$$
-DELIMITER ;
+DELIMITER;
 
-
--- CHECK VALID PNR
+-- IX
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `check_valid_pnr`(IN `pnr` VARCHAR(12))
-    NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_valid_pnr` (IN `pnr` VARCHAR(12))  NO SQL
 BEGIN
 	DECLARE msg VARCHAR(255) DEFAULT '';
     DECLARE p VARCHAR(12);
@@ -366,4 +356,4 @@ BEGIN
     	SET MESSAGE_TEXT = 'Please enter vaild PNR Number';
     END IF;
 END$$
-DELIMITER ;
+DELIMITER;

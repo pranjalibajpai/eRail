@@ -61,6 +61,15 @@ CREATE TRIGGER `before_train_release` BEFORE INSERT ON `train`
     END IF;
 END
 
+-- Trigger TO Prevent Update Of Ticket Details
+CREATE TRIGGER `check_ticket_update` BEFORE UPDATE ON `ticket`
+ FOR EACH ROW BEGIN
+	IF NEW.pnr_no != OLD.pnr_no OR NEW.coach != OLD.coach THEN
+    	SIGNAL SQLSTATE '45000' 
+    	SET MESSAGE_TEXT = 'Ticket details cannot be updated';
+    END IF;
+END
+
 -- Trigger Before Updating seats booked in train_status
 
 CREATE TRIGGER `check_booked_seats` BEFORE UPDATE ON `train_status`
@@ -87,14 +96,6 @@ CREATE TRIGGER `check_booked_seats` BEFORE UPDATE ON `train_status`
     END IF;
 END
 
--- Trigger TO Prevent Update Of Ticket Details
-CREATE TRIGGER `check_ticket_update` BEFORE UPDATE ON `ticket`
- FOR EACH ROW BEGIN
-	IF NEW.pnr_no != OLD.pnr_no OR NEW.coach != OLD.coach THEN
-    	SIGNAL SQLSTATE '45000' 
-    	SET MESSAGE_TEXT = 'Ticket details cannot be updated';
-    END IF;
-END
 
 -- Trigger To Prevent Booking Of Same berth for same train coach same date 
 CREATE TRIGGER `before_berth_assign` BEFORE INSERT ON `passenger`
