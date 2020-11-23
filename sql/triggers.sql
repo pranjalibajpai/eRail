@@ -60,3 +60,29 @@ CREATE TRIGGER `before_train_release` BEFORE INSERT ON `train`
     	SET MESSAGE_TEXT = message;
     END IF;
 END
+
+-- Trigger Before Updating seats booked in train_status
+
+CREATE TRIGGER `check_booked_seats` BEFORE UPDATE ON `train_status`
+ FOR EACH ROW BEGIN
+	DECLARE msg varchar(255) DEFAULT '';
+    DECLARE avail_a INT;
+    DECLARE avail_s INT;
+    
+    SELECT num_ac, num_sleeper
+    FROM train
+    WHERE t_number = OLD.t_number AND t_date = OLD.t_date
+    INTO avail_a, avail_s;
+    
+	IF NEW.seats_b_ac > avail_a*18 THEN
+    	SET msg = CONCAT(msg, ' Sufficient Seats are not available in AC Coach of Train no ', NEW.t_number, ' Dated ', NEW.t_date);
+    END IF;
+    IF NEW.seats_b_sleeper > avail_s*24 THEN
+    	SET msg = CONCAT(msg, ' Sufficient Seats are not available in Sleeper Coach of Train no ', NEW.t_number, ' Dated ', NEW.t_date);
+    END IF;
+
+    IF msg != '' THEN
+    	SIGNAL SQLSTATE '45000' 
+    	SET MESSAGE_TEXT = msg;
+    END IF;
+END

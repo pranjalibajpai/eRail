@@ -63,7 +63,7 @@
             }
           }
 
-         // header('Location: get-ticket.php');
+          header('Location: get-ticket.php');
          
         }
       }
