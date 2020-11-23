@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2020 at 07:59 PM
+-- Generation Time: Nov 23, 2020 at 07:35 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -34,26 +34,15 @@ BEGIN
     DECLARE berth_type VARCHAR(10);
     DECLARE msg varchar(250) DEFAULT '';
     
-	-- update
-    IF tcoach like 'ac' THEN
-        UPDATE train_status
-        SET seats_b_ac = seats_b_ac + 1
-        WHERE t_number = tnum AND t_date = tdate;
-    ELSE
-        UPDATE train_status
-        SET seats_b_sleeper = seats_b_sleeper + 1
-        WHERE t_number = tnum AND t_date = tdate;
-    END IF;
-    
     IF tcoach like 'ac' THEN
         SET tseats = 18;
-        SELECT seats_b_ac
+        SELECT seats_b_ac+1
         FROM train_status 
         WHERE t_number = tnum AND t_date = tdate
         INTO bseats;
     ELSE 
         SET tseats = 24;
-        SELECT seats_b_sleeper
+        SELECT seats_b_sleeper+1
         FROM train_status
         WHERE t_number = tnum AND t_date = tdate
         INTO bseats;
@@ -108,6 +97,17 @@ BEGIN
     -- insert
     INSERT INTO passenger 
     VALUES(name, age, gender, pnr_no, berth_no, berth_type, coach_no);
+    
+    -- update
+    IF tcoach like 'ac' THEN
+        UPDATE train_status
+        SET seats_b_ac = seats_b_ac + 1
+        WHERE t_number = tnum AND t_date = tdate;
+    ELSE
+        UPDATE train_status
+        SET seats_b_sleeper = seats_b_sleeper + 1
+        WHERE t_number = tnum AND t_date = tdate;
+    END IF;
    
 END$$
 
@@ -205,7 +205,7 @@ BEGIN
         ELSEIF avail_s*24 = book_s THEN
         	SET m1 = CONCAT('Sleeper Coaches of Train- ', tnum, ' Dated- ', tdate, ' are already booked!');
         ELSEIF avail_s*24 < book_s + num_p THEN
-        	SET m1 = CONCAT('Sleeper Coach of Train- ', tnum, ' Dated- ', tdate, ' has only ' , avail_s*18-book_s, ' seats available!'); 
+        	SET m1 = CONCAT('Sleeper Coach of Train- ', tnum, ' Dated- ', tdate, ' has only ' , avail_s*24-book_s, ' seats available!'); 
         END IF;
     END IF;
     
@@ -373,6 +373,10 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- RELATIONSHIPS FOR TABLE `admin`:
+--
+
+--
 -- Dumping data for table `admin`
 --
 
@@ -397,17 +401,10 @@ CREATE TABLE `passenger` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `passenger`
+-- RELATIONSHIPS FOR TABLE `passenger`:
+--   `pnr_no`
+--       `ticket` -> `pnr_no`
 --
-
-INSERT INTO `passenger` (`name`, `age`, `gender`, `pnr_no`, `berth_no`, `berth_type`, `coach_no`) VALUES
-('w', 5, 'Female', '648-792-8768', 19, 'UB', 1),
-('riya', 6, 'Female', '648-883-6224', 1, 'LB', 2),
-('g', 5, 'Male', '648-883-6224', 2, 'LB', 2),
-('d', 3, 'Female', '648-902-3840', 18, 'SU', 1),
-('a', 4, 'Female', '736-127-8144', 1, 'LB', 1),
-('b', 6, 'Female', '736-127-8144', 2, 'LB', 1),
-('e', 4, 'Female', '736-665-5968', 3, 'UB', 1);
 
 -- --------------------------------------------------------
 
@@ -425,16 +422,27 @@ CREATE TABLE `ticket` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ticket`
+-- RELATIONSHIPS FOR TABLE `ticket`:
+--   `booked_by`
+--       `user` -> `username`
+--   `t_number`
+--       `train` -> `t_number`
+--   `t_date`
+--       `train` -> `t_date`
 --
 
-INSERT INTO `ticket` (`pnr_no`, `coach`, `booked_by`, `booked_at`, `t_number`, `t_date`) VALUES
-('648-792-8768', 'sleeper', 'pb ', '2020-11-12 18:42:52', 1, '2021-02-01'),
-('648-883-6224', 'ac', 'pb ', '2020-11-12 18:42:07', 1, '2021-02-01'),
-('648-902-3840', 'ac', 'pb ', '2020-11-12 18:40:58', 1, '2021-02-01'),
-('736-127-8144', 'ac', 'pb', '2020-11-20 18:49:46', 2, '2021-01-01'),
-('736-393-4960', 'ac', 'pb', '2020-11-20 18:32:35', 2, '2021-01-01'),
-('736-665-5968', 'ac', 'pb', '2020-11-20 18:50:47', 2, '2021-01-01');
+--
+-- Triggers `ticket`
+--
+DELIMITER $$
+CREATE TRIGGER `check_ticket_update` BEFORE UPDATE ON `ticket` FOR EACH ROW BEGIN
+	IF NEW.pnr_no != OLD.pnr_no OR NEW.coach != OLD.coach THEN
+    	SIGNAL SQLSTATE '45000' 
+    	SET MESSAGE_TEXT = 'Ticket details cannot be updated';
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -451,13 +459,10 @@ CREATE TABLE `train` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `train`
+-- RELATIONSHIPS FOR TABLE `train`:
+--   `released_by`
+--       `admin` -> `username`
 --
-
-INSERT INTO `train` (`t_number`, `t_date`, `num_ac`, `num_sleeper`, `released_by`) VALUES
-(1, '2021-02-01', 2, 1, 'admin'),
-(2, '2021-01-01', 3, 2, 'admin'),
-(3, '2021-03-20', 3, 2, 'admin');
 
 --
 -- Triggers `train`
@@ -537,12 +542,41 @@ CREATE TABLE `train_status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `train_status`
+-- RELATIONSHIPS FOR TABLE `train_status`:
+--   `t_number`
+--       `train` -> `t_number`
+--   `t_date`
+--       `train` -> `t_date`
 --
 
-INSERT INTO `train_status` (`t_number`, `t_date`, `seats_b_ac`, `seats_b_sleeper`) VALUES
-(2, '2021-01-01', 3, 0),
-(3, '2021-03-20', 0, 0);
+--
+-- Triggers `train_status`
+--
+DELIMITER $$
+CREATE TRIGGER `check_booked_seats` BEFORE UPDATE ON `train_status` FOR EACH ROW BEGIN
+	DECLARE msg varchar(255) DEFAULT '';
+    DECLARE avail_a INT;
+    DECLARE avail_s INT;
+    
+    SELECT num_ac, num_sleeper
+    FROM train
+    WHERE t_number = OLD.t_number AND t_date = OLD.t_date
+    INTO avail_a, avail_s;
+    
+	IF NEW.seats_b_ac > avail_a*18 THEN
+    	SET msg = CONCAT(msg, ' Sufficient Seats are not available in AC Coach of Train no ', NEW.t_number, ' Dated ', NEW.t_date);
+    END IF;
+    IF NEW.seats_b_sleeper > avail_s*24 THEN
+    	SET msg = CONCAT(msg, ' Sufficient Seats are not available in Sleeper Coach of Train no ', NEW.t_number, ' Dated ', NEW.t_date);
+    END IF;
+
+    IF msg != '' THEN
+    	SIGNAL SQLSTATE '45000' 
+    	SET MESSAGE_TEXT = msg;
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -559,12 +593,8 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `user`
+-- RELATIONSHIPS FOR TABLE `user`:
 --
-
-INSERT INTO `user` (`username`, `name`, `email`, `address`, `password`) VALUES
-('grfr', 'anu', 'dksm@gmail.com', 'bbfvsd', 'abcdefgh'),
-('pb', 'Pranjali', 'pb@gmail.com', 'Awas Vikas Colony', 'pranjali');
 
 --
 -- Indexes for dumped tables
