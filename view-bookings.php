@@ -27,7 +27,7 @@
 <?php include "template/header-name.php" ?>
 <style> 
     table { 
-        width: 90%;
+        width: 100%;
         margin: 0 auto; 
         font-size: large; 
         border: 2px solid rgb(120, 120, 120); 
@@ -49,7 +49,7 @@
 </style>
 <div style="margin-top:200px;">
     <form style = "width: 80%;">
-        <h5>Booking Details</h5>
+        <h3 class="heading">Booking Details</h3><br>
         <section>
             <table> 
                 <tr> 
