@@ -99,7 +99,7 @@
     </section> 
     <br>
 
-    <a href="find-ticket.php" class= "register">Back</a>
+    <a href="index.php" class= "register">Back</a>
     <button onclick="window.print()">Print Ticket</button>
     
 </form>
