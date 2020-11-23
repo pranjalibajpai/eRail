@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2020 at 07:35 AM
+-- Generation Time: Nov 23, 2020 at 06:22 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -34,15 +34,25 @@ BEGIN
     DECLARE berth_type VARCHAR(10);
     DECLARE msg varchar(250) DEFAULT '';
     
+     -- update
+    IF tcoach like 'ac' THEN
+        UPDATE train_status
+        SET seats_b_ac = seats_b_ac + 1
+        WHERE t_number = tnum AND t_date = tdate;
+    ELSE
+        UPDATE train_status
+        SET seats_b_sleeper = seats_b_sleeper + 1
+        WHERE t_number = tnum AND t_date = tdate;
+    END IF;
     IF tcoach like 'ac' THEN
         SET tseats = 18;
-        SELECT seats_b_ac+1
+        SELECT seats_b_ac
         FROM train_status 
         WHERE t_number = tnum AND t_date = tdate
         INTO bseats;
     ELSE 
         SET tseats = 24;
-        SELECT seats_b_sleeper+1
+        SELECT seats_b_sleeper
         FROM train_status
         WHERE t_number = tnum AND t_date = tdate
         INTO bseats;
@@ -98,17 +108,6 @@ BEGIN
     INSERT INTO passenger 
     VALUES(name, age, gender, pnr_no, berth_no, berth_type, coach_no);
     
-    -- update
-    IF tcoach like 'ac' THEN
-        UPDATE train_status
-        SET seats_b_ac = seats_b_ac + 1
-        WHERE t_number = tnum AND t_date = tdate;
-    ELSE
-        UPDATE train_status
-        SET seats_b_sleeper = seats_b_sleeper + 1
-        WHERE t_number = tnum AND t_date = tdate;
-    END IF;
-   
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `check_admin_credentials` (IN `n` VARCHAR(10), IN `p` VARCHAR(50))  NO SQL
@@ -373,10 +372,6 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONSHIPS FOR TABLE `admin`:
---
-
---
 -- Dumping data for table `admin`
 --
 
@@ -401,10 +396,51 @@ CREATE TABLE `passenger` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONSHIPS FOR TABLE `passenger`:
---   `pnr_no`
---       `ticket` -> `pnr_no`
+-- Triggers `passenger`
 --
+DELIMITER $$
+CREATE TRIGGER `before_berth_assign` BEFORE INSERT ON `passenger` FOR EACH ROW BEGIN
+    DECLARE msg VARCHAR(255) DEFAULT '';
+    DECLARE finished INT DEFAULT 0;
+    DECLARE tnum INT;
+    DECLARE tdate DATE;
+    DECLARE c1 VARCHAR(50);
+    DECLARE bno INT;
+    DECLARE cno INT;
+    DECLARE t_no INT;
+    DECLARE t_d INT;
+    DECLARE c2 VARCHAR(50);
+	DECLARE p_info CURSOR FOR
+        SELECT t_number, t_date, berth_no, coach_no, coach
+        FROM passenger, ticket
+        WHERE passenger.pnr_no = ticket.pnr_no;
+	DECLARE CONTINUE HANDLER 
+    	FOR NOT FOUND SET finished = 1;
+        
+    SELECT t_number, t_date, coach 
+    FROM ticket
+    WHERE pnr_no = NEW.pnr_no
+    INTO t_no, t_d, c1;
+    
+    OPEN p_info;
+	get_info: LOOP
+		FETCH p_info INTO tnum, tdate, bno, cno, c2;
+		IF finished = 1 THEN 
+			LEAVE get_info;
+		END IF;
+        IF tnum = t_no AND tdate = t_d AND bno = NEW.berth_no AND cno = NEW.coach_no AND c1 = c2 THEN
+        	SET msg = 'Found';
+        END IF;
+	END LOOP get_info;
+	CLOSE p_info;
+    
+    IF msg not like '' THEN
+		SIGNAL SQLSTATE '45000'
+    	SET MESSAGE_TEXT = 'This seat has been booked already';
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -420,16 +456,6 @@ CREATE TABLE `ticket` (
   `t_number` int(11) NOT NULL,
   `t_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONSHIPS FOR TABLE `ticket`:
---   `booked_by`
---       `user` -> `username`
---   `t_number`
---       `train` -> `t_number`
---   `t_date`
---       `train` -> `t_date`
---
 
 --
 -- Triggers `ticket`
@@ -457,12 +483,6 @@ CREATE TABLE `train` (
   `num_sleeper` int(11) NOT NULL,
   `released_by` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONSHIPS FOR TABLE `train`:
---   `released_by`
---       `admin` -> `username`
---
 
 --
 -- Triggers `train`
@@ -542,14 +562,6 @@ CREATE TABLE `train_status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONSHIPS FOR TABLE `train_status`:
---   `t_number`
---       `train` -> `t_number`
---   `t_date`
---       `train` -> `t_date`
---
-
---
 -- Triggers `train_status`
 --
 DELIMITER $$
@@ -591,10 +603,6 @@ CREATE TABLE `user` (
   `address` varchar(128) NOT NULL,
   `password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONSHIPS FOR TABLE `user`:
---
 
 --
 -- Indexes for dumped tables
