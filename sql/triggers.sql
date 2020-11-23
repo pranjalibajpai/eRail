@@ -86,3 +86,12 @@ CREATE TRIGGER `check_booked_seats` BEFORE UPDATE ON `train_status`
     	SET MESSAGE_TEXT = msg;
     END IF;
 END
+
+-- Trigger TO Prevent Update Of Ticket Details
+CREATE TRIGGER `check_ticket_update` BEFORE UPDATE ON `ticket`
+ FOR EACH ROW BEGIN
+	IF NEW.pnr_no != OLD.pnr_no OR NEW.coach != OLD.coach THEN
+    	SIGNAL SQLSTATE '45000' 
+    	SET MESSAGE_TEXT = 'Ticket details cannot be updated';
+    END IF;
+END
