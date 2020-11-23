@@ -31,6 +31,7 @@
 <?php include "template/header-name.php" ?>
 <style> 
     table { 
+        width: 100%;
         margin: 0 auto; 
         font-size: large; 
         border: 2px solid rgb(120, 120, 120); 
@@ -52,7 +53,7 @@
 </style> 
 
 <div style="margin-top:100px;">
-<form style="width: 80%;">
+<form style="width: 60%;">
     <h3 class="heading">Registered Users</h3> <br>
     <section>
         <table> 
