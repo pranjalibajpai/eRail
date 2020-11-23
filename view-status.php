@@ -39,10 +39,6 @@
                     $avail_sleeper = $row1->num_sleeper*24 - $row->seats_b_sleeper;
                 }
             }
-            else if($result2->num_rows > 0){
-                    $errors['final'] = 'Train has been booked';
-                    $avail_ac = $avail_sleeper = 0;
-            }
             else{
                 $errors['final'] = 'Train has not been released'; 
             }
