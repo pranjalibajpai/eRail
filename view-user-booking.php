@@ -49,7 +49,7 @@
 </style>
 <div style="margin-top:200px;">
     <form style = "width: 80%;">
-        <h5>Your Previous Booking Details</h5><br>
+        <h3 class ="heading">Your Previous Booking Details</h3><br>
         <section>
             <table> 
                 <tr> 
