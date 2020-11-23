@@ -79,7 +79,7 @@
 
 <div style="margin-top:100px;">
 <form method="post" action="passenger-details.php" style="width: 55%;">
-  <h3> Enter Details Of Passengers</h3><br>
+  <h3 class="heading"> Enter Details Of Passengers</h3><br>
   <table>
     <tr> 
         <th></th>
@@ -92,10 +92,10 @@
    <td> Passenger&nbsp<?php echo $i+1 ?>&nbsp&nbsp&nbsp
    </td>
    <td>
-	<input type="text" name="name[]" placeholder="Enter name" value = "<?php echo $name[$i] ?>">&nbsp&nbsp&nbsp
+	<input type="text" name="name[]" placeholder="Enter name" value = "<?php echo $name[$i] ?>">
 	</td>
 	<td>
-	<input type="number" name="age[]" placeholder="Enter Age" value = "<?php echo $age[$i] ?>">&nbsp&nbsp&nbsp
+	<input type="number" name="age[]" placeholder="Enter Age" value = "<?php echo $age[$i] ?>">
 	</td>
 	<td>
 	<select name="gender[]">
