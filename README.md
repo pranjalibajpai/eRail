@@ -1,7 +1,7 @@
 #  🚉 eRail - An online railway reservation system🎫 
 
 ## Demo
-
+![demo](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/preview/final-demo.gif)
 
 ## Schema
 Tables | Attributes
@@ -58,7 +58,9 @@ passenger | name, age, gender, pnr_no(PK, FK - ticket), berth_no(PK), berth_type
     - Checks, whether the berth number & coach number assigned, is already assigned to some other passenger for the same train number and date of journey and coach(AC/Sleeper) or not
 
 ## Ticket Booking Procedure
+- Step 1
 ![step1](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/flowchart/Ticket%20Booking-1.png)
+- Step 2
 ![step2](https://github.com/pranjalibajpai/railway-reservation-system/blob/master/flowchart/Ticket-Booking-2.png)
 
 ## Train Release Procedure
