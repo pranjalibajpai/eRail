@@ -124,7 +124,7 @@ GROUP BY ticket.pnr_no;
 
 ## How to run locally 
 - Install [XAMPP](https://www.apachefriends.org/index.html) on your system
-- Clone the repository in ```C:/Program Files/XAMPP/htdocs``` 
+- Clone the repository in ```C:/xampp/htdocs``` 
 - ``` git clone https://github.com/pranjalibajpai/railway-reservation-system.git```
 - ``` cd railway-reservation-system ```
 - Start Apache & Mysql Servers from XAMPP Control Panel 
